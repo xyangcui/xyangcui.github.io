@@ -11,9 +11,10 @@ import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
 import config from '@/site-config'
 
-const languages = ['Html', 'JavaScript', 'CSS', 'Shell']
+const languages = ['NCL', 'Python', 'Fortran', 'Shell', 'Html']
 const frontend = ['TypeScript', 'Vite', 'Webpack', 'Astro']
 const backend = ['Vercel', 'Waline']
+const research = ['Midlatitude dynamics', 'Prediction', 'Data assimilation', 'Climate modeling']
 
 const MAX_POSTS = 10
 const allPosts = await getBlogCollection()
@@ -43,35 +44,38 @@ if (!images[imagePath])
       <div class='flex flex-col items-center gap-y-4'>
         <h1 class='text-3xl font-medium'>{config.author}</h1>
         <div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
-          <Label title='Somewhere'>
-            <Icon name='location' class='size-5' slot='icon' />
-          </Label>
           <Label
-            title='Source code'
+          title='ORCID'
+          as='a'
+          href='https://orcid.org/0009-0006-8639-4400'
+          target='_blank'
+          >
+          <svg
+          slot='icon'
+          class='size-5'
+          viewBox='0 0 256 256'
+          xmlns='http://www.w3.org/2000/svg'
+          >
+          <circle cx='128' cy='128' r='128' fill='#A6CE39' />
+          <path
+            fill='#FFFFFF'
+            d='M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.8-26.5 42.8-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.8v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.5-10.1 10.1-10.1 10.1 4.6 10.1 10.1z'
+            />
+          </svg>
+          </Label>
+
+          <Label
+            title='Github'
             as='a'
-            href='https://github.com/cworld1/astro-theme-pure'
+            href='https://github.com/xyangcui'
             target='_blank'
           >
             <Icon name='github' class='size-5' slot='icon' />
           </Label>
+
         </div>
       </div>
-
-      {/* Get template */}
-      <a
-        href='https://github.com/cworld1/astro-theme-pure'
-        target='_blank'
-        class='flex flex-row items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
-      >
-        <span class='relative flex items-center justify-center'>
-          <span
-            class='absolute size-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
-          ></span>
-          <span class='size-2 rounded-full bg-green-400'></span>
-        </span>
-        <p class='font-medium text-muted-foreground'>Get Template</p>
-      </a>
-    </section>
+    </section> 
 
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
       <Section title='About'>
@@ -147,6 +151,11 @@ if (!images[imagePath])
         </Card>
       </Section>
 
+      <Section title='Skills'>
+        <SkillLayout title='Languages' skills={languages} />
+        <SkillLayout title='Research interests' skills={research} />
+      </Section>
+
       <Section title='Website List'>
         <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
           <ProjectCard
@@ -186,11 +195,6 @@ if (!images[imagePath])
         />
       </Section>
 
-      <Section title='Skills'>
-        <SkillLayout title='Languages' skills={languages} />
-        <SkillLayout title='Frontend' skills={frontend} />
-        <SkillLayout title='Backend' skills={backend} />
-      </Section>
     </div>
     <Quote class='mt-12' />
   </main>

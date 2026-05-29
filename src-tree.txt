@@ -1,0 +1,118 @@
+src
+├── assets
+│   ├── alipay-qrcode.jpg
+│   ├── avatar.png
+│   ├── icons
+│   │   └── key.svg
+│   ├── projects
+│   │   ├── 1.avif
+│   │   ├── 2.avif
+│   │   ├── 3.avif
+│   │   └── 4.avif
+│   ├── styles
+│   │   ├── app.css
+│   │   └── global.css
+│   ├── tools
+│   │   ├── aftereffects.svg
+│   │   ├── apple.svg
+│   │   ├── archlinux.svg
+│   │   ├── chatgpt.svg
+│   │   ├── chrome.svg
+│   │   ├── firefox.svg
+│   │   ├── illustrator.svg
+│   │   ├── neovim.svg
+│   │   ├── notion.svg
+│   │   ├── photoshop.svg
+│   │   ├── premiere.svg
+│   │   ├── sublime.svg
+│   │   ├── typora.svg
+│   │   ├── ubuntu.svg
+│   │   ├── vscode.svg
+│   │   └── windows11.svg
+│   └── wechat-qrcode.jpg
+├── components
+│   ├── BaseHead.astro
+│   ├── about
+│   │   ├── Substats.astro
+│   │   └── ToolSection.astro
+│   ├── home
+│   │   ├── ProjectCard.astro
+│   │   ├── Section.astro
+│   │   └── SkillLayout.astro
+│   ├── links
+│   │   └── FriendList.astro
+│   ├── projects
+│   │   ├── ProjectSection.astro
+│   │   ├── Sponsors.astro
+│   │   └── Sponsorship.astro
+│   └── waline
+│       ├── Comment.astro
+│       ├── PageInfo.astro
+│       ├── Pageview.astro
+│       └── index.ts
+├── content
+│   ├── blog
+│   │   ├── 3d-rendering
+│   │   ├── draft.md
+│   │   ├── improve-concentration
+│   │   ├── markdown
+│   │   ├── markdown-zh
+│   │   ├── music-journey
+│   │   └── using-mdx.mdx
+│   └── docs
+│       ├── advanced
+│       ├── integrations
+│       └── setup
+├── content.config.ts
+├── layouts
+│   ├── BaseLayout.astro
+│   ├── BlogPost.astro
+│   ├── CommonPage.astro
+│   ├── ContentLayout.astro
+│   └── IndividualPage.astro
+├── pages
+│   ├── 404.astro
+│   ├── about
+│   │   └── index.astro
+│   ├── archives
+│   │   └── index.astro
+│   ├── blog
+│   │   ├── [...id].astro
+│   │   └── [...page].astro
+│   ├── docs
+│   │   ├── DocsContents.astro
+│   │   ├── [...id].astro
+│   │   ├── index.astro
+│   │   └── rss.xml.ts
+│   ├── index.astro
+│   ├── links
+│   │   └── index.astro
+│   ├── projects
+│   │   └── index.astro
+│   ├── robots.txt.ts
+│   ├── rss.xml.ts
+│   ├── search
+│   │   └── index.astro
+│   ├── tags
+│   │   ├── [tag]
+│   │   └── index.astro
+│   └── terms
+│       ├── copyright.md
+│       ├── disclaimer.md
+│       ├── index.astro
+│       ├── privacy-policy.md
+│       └── terms-and-conditions.md
+├── plugins
+│   ├── rehype-auto-link-headings.ts
+│   ├── shiki-custom-transformers.ts
+│   └── shiki-official
+│       ├── shared-notation-map.ts
+│       ├── shared-notation-transformer.ts
+│       ├── shared-parse-comments.ts
+│       └── transformers.ts
+├── site.config.ts
+├── type.d.ts
+└── types
+    └── waline-style.d.ts
+
+38 directories, 78 files
