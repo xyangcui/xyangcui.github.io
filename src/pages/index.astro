@@ -12,8 +12,6 @@ import SkillLayout from '@/components/home/SkillLayout.astro'
 import config from '@/site-config'
 
 const languages = ['NCL', 'Python', 'Fortran', 'Shell', 'Html']
-const frontend = ['TypeScript', 'Vite', 'Webpack', 'Astro']
-const backend = ['Vercel', 'Waline']
 const research = ['Midlatitude dynamics', 'Prediction', 'Data assimilation', 'Climate modeling']
 
 const MAX_POSTS = 10
@@ -134,10 +132,9 @@ if (!images[imagePath])
       <Section title='Education'>
         <Card
           as='a'
-          heading='Lorem ipsum'
-          subheading='Lorem ipsum dolor sit amet, vidit suscipit at mei.'
-          date='August 2021 - July 2025'
-          href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+          heading='Bachelor of Science in Atmospheric Sciences'
+          subheading='Nanjing University of Information Science & Technology'
+          date='September 2019 - June 2023'
         >
           {
             /* <ul class='ms-4 list-disc text-muted-foreground'>
@@ -149,6 +146,11 @@ if (!images[imagePath])
         </ul> */
           }
         </Card>
+        <Card
+          heading="PhD of Meteorology"
+          subheading="Nanjing University of Information Science & Technology"
+          date="September 2023 - Present"
+        />
       </Section>
 
       <Section title='Skills'>
