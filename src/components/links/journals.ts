@@ -24,7 +24,7 @@ export const amsjournals = [
 export const agujournals = [
   {
     "title": "Geophysical Research Letters",
-    "url": "https://www.agu.org/journals/gl/",
+    "url": "https://agupubs.onlinelibrary.wiley.com/journal/19448007",
   },
   {
     "title": "Journal of Geophysical Research: Atmospheres",
