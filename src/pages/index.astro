@@ -4,7 +4,13 @@ import { Image } from 'astro:assets'
 import { Quote } from 'astro-pure/advanced'
 import { PostPreview } from 'astro-pure/components/pages'
 import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
-import { Button, Card, Icon, Label } from 'astro-pure/user'
+import Button from '../../packages/pure/components/user/Button.astro'
+import Card   from '../../packages/pure/components/user/Card.astro'
+import Icon   from '../../packages/pure/components/user/Icon.astro'
+import Label  from '../../packages/pure/components/user/Label.astro'
+//import { Button, Card, Icon, Label } from '@/components/user'
+//import { Button, Card, Icon, Label } from '@/components/user'
+//import { Button, Card, Icon, Label } from '@/components/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ProjectCard from '@/components/home/ProjectCard.astro'
 import Section from '@/components/home/Section.astro'
@@ -61,7 +67,7 @@ if (!images[imagePath])
             href='https://github.com/xyangcui'
             target='_blank'
           >
-            <Icon name='github' class='size-5' slot='icon' />
+            <Icon name='discord' class='size-5' slot='icon' />
           </Label>
 
         </div>
