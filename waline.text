@@ -1,0 +1,90 @@
+src/types/waline-style.d.ts:declare module '@waline/client/style'
+src/types/waline-style.d.ts:declare module '@waline/client/waline.css'
+src/types/waline-style.d.ts:declare module '@waline/client/waline-meta.css'
+src/site.config.ts:  waline: {
+src/site.config.ts:    server: 'https://astro-theme-pure-waline.arthals.ink/',
+src/site.config.ts:    // Refer https://waline.js.org/en/guide/features/emoji.html
+src/site.config.ts:    // Refer https://waline.js.org/en/reference/client/props.html
+src/content/docs/advanced/update.mdx:  - Changed the Waline files out of package! Checkout [Commit 5119694](https://github.com/cworld1/astro-theme-pure/commit/5119694ab3e32b600887dca30650bcbc63da3f7b) to see how to change your existing pages & layouts. Don't forget to copy files at `src/components/waline` to your project.
+src/content/docs/advanced/update.mdx:- Move some configuration items like `telegram`, `walineServerURL` to new structure in `src/site.config.ts`.
+src/content/docs/advanced/about.mdx:- Comment: [Waline](https://github.com/walinejs/waline)
+src/content/docs/integrations/comment.mdx:  `integrationConfig.waline` in file `src/site.config.ts`.
+src/content/docs/integrations/comment.mdx:The theme's comment, read statistics, likes, and other functionalities are all provided by [Waline](https://waline.js.org/).
+src/content/docs/integrations/comment.mdx:     waline: {
+src/content/docs/integrations/comment.mdx:2. Remove dependency `@waline/client`:
+src/content/docs/integrations/comment.mdx:   bun remove @waline/client
+src/content/docs/integrations/comment.mdx:3. Remove folder `src/components/waline`.
+src/content/docs/integrations/comment.mdx:  waline: {
+src/content/docs/integrations/comment.mdx:    server: 'https://astro-theme-pure-waline.arthals.ink/', // [!code highlight]
+src/content/docs/integrations/comment.mdx:    // Refer https://waline.js.org/en/guide/features/emoji.html
+src/content/docs/integrations/comment.mdx:    // Refer https://waline.js.org/en/reference/client/props.html
+src/content/docs/integrations/comment.mdx:import { Comment } from '@/components/waline'
+src/content/docs/integrations/comment.mdx:import { Comment } from '@/components/waline'
+src/components/waline/Comment.astro:import '@waline/client/style'
+src/components/waline/Comment.astro:  config.integ.waline.enable && (
+src/components/waline/Comment.astro:      <div id='waline' class={cn('not-prose', className)}>
+src/components/waline/Comment.astro:  import { init as walineInit } from '@waline/client'
+src/components/waline/Comment.astro:  import type { WalineEmojiPresets } from '@waline/client'
+src/components/waline/Comment.astro:  const walineConfig = config.integ.waline
+src/components/waline/Comment.astro:      const emoji = walineConfig.emoji?.map(
+src/components/waline/Comment.astro:        (preset) => `${config.npmCDN}/@waline/emojis@1.2.0/${preset}` as WalineEmojiPresets
+src/components/waline/Comment.astro:      walineInit({
+src/components/waline/Comment.astro:        el: 'comment-component #waline',
+src/components/waline/Comment.astro:        serverURL: walineConfig.server || '',
+src/components/waline/Comment.astro:        ...walineConfig.additionalConfigs
+src/components/waline/Comment.astro:  if (walineConfig.enable) customElements.define('comment-component', Comment)
+src/components/waline/Comment.astro:  config.integ.waline.showMeta &&(
+src/components/waline/Comment.astro:    <style> #waline :global(.wl-meta) { display: none; } </style>
+src/components/waline/Comment.astro:  #waline {
+src/components/waline/Comment.astro:    --waline-font-size: 16px;
+src/components/waline/Comment.astro:    --waline-white: hsl(var(--background) / var(--un-bg-opacity, 1));
+src/components/waline/Comment.astro:    --waline-light-grey: #999;
+src/components/waline/Comment.astro:    --waline-dark-grey: #666;
+src/components/waline/Comment.astro:    --waline-theme-color: hsl(var(--foreground) / var(--un-text-opacity, 1));
+src/components/waline/Comment.astro:    --waline-active-color: hsl(var(--primary) / var(--un-text-opacity, 1));
+src/components/waline/Comment.astro:    --waline-color: hsl(var(--muted-foreground) / var(--un-text-opacity, 1));
+src/components/waline/Comment.astro:    --waline-bg-color: hsl(var(--muted) / var(--un-bg-opacity, 1));
+src/components/waline/Comment.astro:    --waline-bg-color-light: hsl(var(--input) / var(--un-text-opacity, 1));
+src/components/waline/Comment.astro:    --waline-bg-color-hover: #f0f0f0;
+src/components/waline/Comment.astro:    --waline-border-color: hsl(var(--border) / var(--un-border-opacity, 1));
+src/components/waline/Comment.astro:    --waline-disable-bg-color: #f8f8f8;
+src/components/waline/Comment.astro:    --waline-disable-color: #bbb;
+src/components/waline/Comment.astro:    --waline-code-bg-color: #282c34;
+src/components/waline/Comment.astro:    --waline-bq-color: #f0f0f0;
+src/components/waline/Comment.astro:    --waline-avatar-size: 3.25rem;
+src/components/waline/Comment.astro:    --waline-m-avatar-size: calc(var(--waline-avatar-size) * 9 / 13);
+src/components/waline/Comment.astro:    --waline-badge-color: hsl(var(--border) / var(--un-border-opacity, 1));
+src/components/waline/Comment.astro:    --waline-badge-font-size: 0.775em;
+src/components/waline/Comment.astro:    --waline-info-bg-color: var(--waline-bg-color-light);
+src/components/waline/Comment.astro:    --waline-info-color: var(--waline-color);
+src/components/waline/Comment.astro:    --waline-info-font-size: 0.625em;
+src/components/waline/Comment.astro:    --waline-border: 1px solid var(--waline-border-color);
+src/components/waline/Comment.astro:    --waline-avatar-radius: 50%;
+src/components/waline/Comment.astro:    --waline-box-shadow: none;
+src/components/waline/Comment.astro:  #waline :global(.wl-content, .wl-text, .wl-comment-text, .wl-item, .wl-card-item, a) {
+src/components/waline/Comment.astro:  #waline :global(.wl-meta, .wl-content, .wl-text, .wl-comment-text) {
+src/components/waline/Comment.astro:  #waline :global(a) {
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction-title, .wl-reaction-text) {
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction) {
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction-img) {
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction-votes) {
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction-loading) {
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction-item.active .wl-reaction-votes) {
+src/components/waline/Comment.astro:    background: var(--waline-theme-color);
+src/components/waline/Comment.astro:    color: var(--waline-bg-color);
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction-votes:after) {
+src/components/waline/Comment.astro:  #waline :global(.wl-reaction img) {
+src/components/waline/Comment.astro:  :global(.dark) #waline :global(.wl-reaction img) {
+src/components/waline/Pageview.astro:// https://waline.js.org/en/guide/features/pageview.html#use-alone
+src/components/waline/Pageview.astro:  define:vars={{ npmCDN: config.npmCDN, walineServer: config.integ.waline.server }}
+src/components/waline/Pageview.astro:      const pageview = await import(`${npmCDN}/@waline/client@v3/dist/pageview.js`)
+src/components/waline/Pageview.astro:      const el = document.querySelector('.waline-pageview-count')
+src/components/waline/Pageview.astro:          serverURL: walineServer,
+src/components/waline/PageInfo.astro:import Pageview from '@/components/waline/Pageview.astro'
+src/components/waline/PageInfo.astro:  <span class='waline-pageview-count' data-path={path}></span> views
+src/components/waline/PageInfo.astro:        <a href='#waline'>
+src/components/waline/PageInfo.astro:          <span class='waline-comment-count' data-path={path} /> comments
+src/layouts/BlogPost.astro:import { Comment, PageInfo } from '@/components/waline'
+src/layouts/CommonPage.astro:import { Comment, PageInfo } from '@/components/waline'
+src/pages/about/index.astro:    <li>Comment system: <a href='https://waline.js.org' target='_blank'>Waline</a></li>
+src/pages/about/index.astro:      <a href='https://waline.js.org/' target='_blank'>Waline</a>
