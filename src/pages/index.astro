@@ -14,6 +14,7 @@ import ProjectCard from '@/components/home/ProjectCard.astro'
 import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
 import config from '@/site-config'
+import avator from '/src/assets/avatar.png'
 
 const languages = ['NCL', 'Python', 'Fortran', 'Shell', 'Html']
 const research = ['Midlatitude dynamics', 'Prediction', 'Data assimilation', 'Climate modeling']
@@ -26,7 +27,6 @@ const imagePath = config.logo.src
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/*.{jpeg,jpg,png,gif,avif,webp}'
 )
-const image  = await images[imagePath]?.()
 if (!images[imagePath])
   throw new Error(
     `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,avif,webp}"`
@@ -54,13 +54,7 @@ if (!images[imagePath])
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
       <Section title='About Me'>
         <div class='flex flex-col items-center gap-6 sm:flex-row sm:items-start'>
-        <Image
-        src={image.default}
-        alt={config.logo.alt || 'Profile'}
-        class='h-28 w-auto rounded-full border p-1'
-        loading='eager'
-        fetchpriority='high'
-        />
+          <img src={avator.src} alt="Profile" class="h-28 w-auto rounded-full border p-1"/>
         <div class='flex flex-col gap-4'>
         <p class='text-muted-foreground'>
           Lorem ipsum dolor sit amet, vidit suscipit at mei. Quem denique mea id. Usu ei regione
