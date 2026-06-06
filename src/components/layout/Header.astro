@@ -1,7 +1,7 @@
 ---
-import Search from "@/components/Search.astro";
-import ThemeToggle from "@/components/ThemeToggle.astro";
-import { siteConfig, menuLinks } from "@/site.config";
+import Search from "../../components/Search.astro";
+import ThemeToggle from "../../components/ThemeToggle.astro";
+import { siteConfig, menuLinks } from "../../site.config";
 import { Icon } from "astro-icon/components";
 ---
 
@@ -52,7 +52,7 @@ import { Icon } from "astro-icon/components";
 			</a>
 			<nav
 				aria-label="Main menu"
-				class="top-20 text-sm mx-auto ml-4 ml-auto hidden flex-col items-end justify-center gap-x-4 rounded-md bg-bgColor font-medium text-accent-two shadow backdrop-blur group-[.menu-open]:z-50 group-[.menu-open]:flex sm:static sm:z-auto sm:flex-row sm:items-center sm:rounded-none sm:bg-transparent sm:shadow-none sm:backdrop-blur-none md:flex"
+				class="top-20 text-xl mx-auto ml-4 ml-auto hidden flex-col items-end justify-center gap-x-4 rounded-md bg-bgColor font-medium text-accent-two shadow backdrop-blur group-[.menu-open]:z-50 group-[.menu-open]:flex sm:static sm:z-auto sm:flex-row sm:items-center sm:rounded-none sm:bg-transparent sm:shadow-none sm:backdrop-blur-none md:flex"
 				id="main-navigation-menu"
 			>	
 				<!--				
@@ -94,13 +94,6 @@ import { Icon } from "astro-icon/components";
 					))
 				}
 				
-				<a
-					class="flex h-8 items-center rounded-lg bg-accent-base/5 px-4 text-accent-base underline-offset-2 hover:bg-accent-base/10"
-					data-astro-prefetch
-					href="/posts/citrus-docs/intro/"
-				>
-					Docs
-				</a>
 				
 				<!-- Dropdown menu button for large screens. Needs improvement. -->
 				<!--

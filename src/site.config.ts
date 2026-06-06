@@ -1,8 +1,8 @@
-import type { SiteConfig } from "@/types";
+import type { SiteConfig } from "./types";
 
 export const siteConfig: SiteConfig = {
 	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
-	author: "Artem Kutsan",
+	author: "Xiangyang Cui",
 	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
 	date: {
 		locale: "en-GB",
@@ -26,18 +26,18 @@ export const siteConfig: SiteConfig = {
 export const menuLinks: { path: string; title: string }[] = [
 	{
 		path: "/",
-		title: "Home",
+		title: "Projects",
 	},
 	{
 		path: "/about/",
-		title: "About",
+		title: "Publications",
 	},
 	{
 		path: "/posts/",
-		title: "Blog",
+		title: "Documents",
 	},
 	{
 		path: "/notes/",
-		title: "Notes",
+		title: "Links",
 	},
 ];

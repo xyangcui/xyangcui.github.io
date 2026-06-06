@@ -1,11 +1,11 @@
 ---
-import BaseHead from "@/components/BaseHead.astro";
-import SkipLink from "@/components/SkipLink.astro";
-import ThemeProvider from "@/components/ThemeProvider.astro";
-import Header from "@/components/layout/Header.astro";
-import Footer from "@/components/layout/Footer.astro";
-import { siteConfig } from "@/site.config";
-import type { SiteMeta } from "@/types";
+import BaseHead from "../components/BaseHead.astro";
+import SkipLink from "../components/SkipLink.astro";
+import ThemeProvider from "../components/ThemeProvider.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import { siteConfig } from "../site.config";
+import type { SiteMeta } from "../types";
 
 interface Props {
 	meta: SiteMeta;
@@ -23,7 +23,7 @@ const {
 	<head>
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 	</head>
-	<body class="min-w-4xl relative m-auto min-h-screen w-full max-w-6xl grow bg-bgColor">
+	<body class="min-w-4xl relative m-auto min-h-screen w-full max-w-5xl grow bg-bgColor">
 		<ThemeProvider />
 		<SkipLink />
 
@@ -46,10 +46,10 @@ const {
 			<!-- Sidebar for Docs Series -->
 			<slot name="sidebar" />
 			<!-- Main container for the page content -->
-			<div id="container" class="min-w-3xl relative m-auto max-w-4xl grow">
-				<div class="m-auto grid min-h-screen md:grid-rows-[auto_auto_1fr] px-4 md:px-8 md:pt-4">
+			<div id="container" class="min-w-3xl relative mx-auto max-w-6xl grow">
+				<div class="mx-auto grid min-h-screen md:grid-rows-[auto_auto_1fr] px-4 md:px-8 md:pt-4">
 					<Header />
-					<main id="main" class="relative flex-grow mt-32 md:mt-[3.5rem]">
+					<main id="main" class="relative mx-auto mt-32 flex w-full max-w-6xl flex-grow flex-col items-center md:mt-[3.5rem]">
 						<slot />
 					</main>
 					<Footer />
