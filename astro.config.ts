@@ -25,6 +25,8 @@ import {
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://xyangcui.github.io",
+  base: "/",
   image: {
     domains: ["webmention.io"],
   },

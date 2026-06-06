@@ -9,7 +9,7 @@
     "strictPropertyInitialization": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "baseUrl": ".",
+    "baseUrl": "/",
     "lib": [
       "es2022",
       "dom",
