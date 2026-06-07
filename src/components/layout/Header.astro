@@ -1,6 +1,7 @@
 ---
 import Search from "../../components/Search.astro";
 import Pagesearch from "../Pagesearch.astro";
+import Searchinline from "../searchinline.astro"
 import ThemeToggle from "../../components/ThemeToggle.astro";
 import { siteConfig, menuLinks } from "../../site.config";
 import { Icon } from "astro-icon/components";
@@ -149,7 +150,7 @@ import { Icon } from "astro-icon/components";
 
 			<div class="ml-auto w-fit">
 				<div id="buttons-panel" class="top-4 md:top-8 -ml-[4.5rem] flex space-x-2">
-					<Pagesearch />
+					<Searchinline />
 					<ThemeToggle />
 				</div>
 			</div>	

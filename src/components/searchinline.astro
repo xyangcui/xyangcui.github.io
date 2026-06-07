@@ -1,0 +1,133 @@
+---
+import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
+---
+
+<PagefindConfig />
+
+<div class="search-inline">
+	<pagefind-searchbox></pagefind-searchbox>
+</div>
+
+<style is:global>
+	.search-inline {
+		position: relative;
+		width: 260px;
+		z-index: 9999;
+	}
+
+	.search-inline pagefind-searchbox {
+		display: block;
+		width: 100%;
+	}
+
+	.search-inline .pagefind-ui {
+		width: 100% !important;
+		padding: 0 !important;
+		font-family: inherit;
+	}
+
+	.search-inline .pagefind-ui__form {
+		width: 100% !important;
+		margin: 0 !important;
+	}
+
+	.search-inline .pagefind-ui__search-input {
+		width: 100% !important;
+		height: 2rem !important;
+
+		box-sizing: border-box !important;
+
+		border: none !important;
+		border-radius: 0.5rem !important;
+
+		background: theme("colors.color.100") !important;
+		color: theme("colors.textColor") !important;
+
+		font-size: 0.875rem !important;
+		padding: 0 2.25rem 0 2.25rem !important;
+
+		outline: none !important;
+	}
+
+	.search-inline .pagefind-ui__search-input::placeholder {
+		opacity: 0.45;
+	}
+
+	.search-inline .pagefind-ui__search-clear {
+		top: 0 !important;
+		right: 0 !important;
+
+		width: 2rem !important;
+		height: 2rem !important;
+		padding: 0 !important;
+
+		background: transparent !important;
+		border: none !important;
+	}
+
+	.search-inline .pagefind-ui__drawer {
+		position: absolute !important;
+
+		top: calc(100% + 0.75rem) !important;
+		right: 0 !important;
+
+		width: 520px !important;
+		max-height: 70vh !important;
+
+		overflow-y: auto !important;
+
+		padding: 1rem !important;
+
+		border-radius: 1rem !important;
+
+		background: theme("colors.bgColor") !important;
+
+		box-shadow:
+			0 20px 60px rgba(0, 0, 0, 0.18),
+			0 8px 24px rgba(0, 0, 0, 0.12) !important;
+	}
+
+	.search-inline .pagefind-ui__result {
+		border: none !important;
+		padding: 0 0 1.25rem 0 !important;
+	}
+
+	.search-inline .pagefind-ui__result:last-of-type {
+		padding-bottom: 0 !important;
+	}
+
+	.search-inline .pagefind-ui__result-link {
+		color: theme("colors.accent-base") !important;
+		font-weight: 600 !important;
+		text-decoration: none !important;
+	}
+
+	.search-inline .pagefind-ui__result-excerpt {
+		color: theme("colors.textColor") !important;
+		font-size: 0.875rem !important;
+		line-height: 1.6 !important;
+	}
+
+	.search-inline mark {
+		background: transparent !important;
+		color: theme("colors.accent-two") !important;
+		font-weight: 700;
+	}
+
+	@media (max-width: 768px) {
+		.search-inline {
+			width: 180px;
+		}
+
+		.search-inline .pagefind-ui__drawer {
+			position: fixed !important;
+
+			top: 4.5rem !important;
+			left: 1rem !important;
+			right: 1rem !important;
+
+			width: auto !important;
+			max-height: 70vh !important;
+		}
+	}
+</style>
