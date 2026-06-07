@@ -7,7 +7,7 @@ import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
 import { defineConfig, envField } from "astro/config";
 import { siteConfig } from "./src/site.config";
-
+import pagefind from 'astro-pagefind';
 // Remark plugins
 import remarkDirective from "remark-directive"; /* handle ::: directives as nodes */
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* add admonitions */
@@ -79,6 +79,7 @@ export default defineConfig({
         insertManifestLink: false,
       },
     }),
+    pagefind(),
   ],
   markdown: {
     syntaxHighlight: false,
@@ -117,7 +118,6 @@ export default defineConfig({
   // https://docs.astro.build/en/guides/prefetch/
   prefetch: true,
   // ! Please remember to replace the following site property with your own domain
-  site: "http://astrocitrus.artemkutsan.pp.ua/",
   vite: {
     build: {
       sourcemap: true, // Source maps generation

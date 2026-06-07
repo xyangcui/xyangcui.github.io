@@ -5,6 +5,7 @@ export { default as FormattedDate } from './FormattedDate.astro';
 export { default as Icon } from './Icon.astro';
 export { default as Label } from './Label.astro';
 export { default as Paginator } from './Paginator.astro';
+export { default as Pagesearch} from './Pagesearch.astro'
 export { default as Search } from './Search.astro';
 export { default as Separator } from './Separator.astro';
 export { default as SeriesPanel } from './SeriesPanel.astro';

@@ -1,0 +1,187 @@
+---
+import "@pagefind/default-ui/css/ui.css";
+import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<PagefindConfig />
+
+<site-search class="ms-auto" id="search">
+	<button
+		class="flex h-8 w-8 items-center justify-center rounded-lg drop-shadow-[0px_1.5px_1.5px_rgba(0,0,0,0.175)] hover:text-accent-two"
+		data-open-modal
+		disabled
+	>
+		<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="hugeicons:search-01" />
+	</button>
+
+	<dialog
+		aria-label="search"
+		class="h-full max-h-full w-full max-w-full md:h-fit bg-bgColor backdrop:backdrop-blur-xl md:my-8 md:min-h-[6.5rem] md:max-w-[44rem] md:rounded-lg overflow-y-hidden"
+	>
+		<div class="dialog-frame flex flex-col h-[100%] px-4 pt-4 pb-4 md:px-8 md:py-8 gap-4">
+			<div class="md:hidden sticky top-0 z-20 flex items-center justify-between bg-bgColor">
+				<h4 class="title flex items-end font-semibold">Search</h4>
+				<button
+					class="flex size-8 cursor-pointer items-center justify-center rounded-lg bg-color-100 text-textColor hover:text-accent-base hover:bg-accent-base/5"
+					data-close-modal
+				>
+					<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="hugeicons:cancel-01" />
+				</button>
+			</div>
+
+			{
+				import.meta.env.DEV ? (
+					<div class="mx-auto text-center text-textColor">
+						<p>
+							Search is only available in production builds. <br />
+							Try building and previewing the site to test it out locally.
+						</p>
+					</div>
+				) : (
+					<div class="search-container h-full">
+						<pagefind-searchbox></pagefind-searchbox>
+					</div>
+				)
+			}
+		</div>
+	</dialog>
+</site-search>
+
+<script>
+	class SiteSearch extends HTMLElement {
+		private closeBtn: HTMLButtonElement;
+		private dialog: HTMLDialogElement;
+		private dialogFrame: HTMLDivElement;
+		private openBtn: HTMLButtonElement;
+
+		closeModal = () => {
+			if (this.dialog.open) {
+				this.dialog.close();
+				document.body.classList.remove("overflow-hidden");
+				window.removeEventListener("click", this.onWindowClick);
+			}
+		};
+
+		onWindowClick = (event: MouseEvent) => {
+			const target = event.target;
+			if (!(target instanceof Node)) return;
+
+			const isLink =
+				target instanceof HTMLAnchorElement ||
+				(target instanceof Element && Boolean(target.closest("a")));
+
+			if (
+				isLink ||
+				(document.body.contains(target) && !this.dialogFrame.contains(target))
+			) {
+				this.closeModal();
+			}
+		};
+
+		onWindowKeydown = (e: KeyboardEvent) => {
+			if (e.key === "/" && !this.dialog.open) {
+				this.openModal();
+				e.preventDefault();
+			}
+
+			if (e.key === "Escape" && this.dialog.open) {
+				this.closeModal();
+			}
+		};
+
+		openModal = (event?: MouseEvent) => {
+			this.dialog.showModal();
+			document.body.classList.add("overflow-hidden");
+			event?.stopPropagation();
+
+			setTimeout(() => {
+				this.querySelector("input")?.focus();
+			}, 50);
+
+			window.addEventListener("click", this.onWindowClick);
+		};
+
+		constructor() {
+			super();
+
+			this.openBtn = this.querySelector<HTMLButtonElement>("button[data-open-modal]")!;
+			this.closeBtn = this.querySelector<HTMLButtonElement>("button[data-close-modal]")!;
+			this.dialog = this.querySelector("dialog")!;
+			this.dialogFrame = this.querySelector(".dialog-frame")!;
+
+			this.openBtn.addEventListener("click", this.openModal);
+			this.openBtn.disabled = false;
+			this.closeBtn.addEventListener("click", this.closeModal);
+		}
+
+		connectedCallback() {
+			window.addEventListener("keydown", this.onWindowKeydown);
+		}
+
+		disconnectedCallback() {
+			window.removeEventListener("keydown", this.onWindowKeydown);
+		}
+	}
+
+	customElements.define("site-search", SiteSearch);
+</script>
+
+<style is:global>
+	pagefind-searchbox {
+		display: block;
+		width: 100%;
+	}
+
+	.search-container {
+		width: 100%;
+		height: 100%;
+	}
+
+	.pagefind-ui {
+		width: 100%;
+		height: 100%;
+		font-family: inherit;
+	}
+
+	.pagefind-ui__form {
+		margin: 0;
+	}
+
+	.pagefind-ui__search-input {
+		width: 100% !important;
+		border: none !important;
+		border-radius: 0.5rem !important;
+		background: theme("colors.color.100") !important;
+		color: theme("colors.textColor") !important;
+		font-size: 1rem !important;
+	}
+
+	.pagefind-ui__drawer {
+		margin-top: 1rem !important;
+		max-height: calc(100vh - 13rem);
+		overflow-y: auto;
+	}
+
+	.pagefind-ui__result {
+		border: none !important;
+		padding: 0 0 2rem 0 !important;
+	}
+
+	.pagefind-ui__result-link {
+		color: theme("colors.accent-base") !important;
+		font-weight: 500 !important;
+		text-decoration: none !important;
+	}
+
+	.pagefind-ui__result-excerpt {
+		color: theme("colors.textColor") !important;
+		font-size: 1rem !important;
+		line-height: 1.6 !important;
+	}
+
+	.pagefind-ui mark {
+		background: transparent !important;
+		color: theme("colors.accent-two") !important;
+	}
+</style>
