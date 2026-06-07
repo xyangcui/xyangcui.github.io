@@ -18,7 +18,8 @@ import { Icon } from "astro-icon/components";
 		aria-label="search"
 		class="h-full max-h-full w-full max-w-full md:h-fit bg-bgColor backdrop:backdrop-blur-xl md:my-8 md:min-h-[6.5rem] md:max-w-[44rem] md:rounded-lg overflow-visible"
 	>
-		<div class="dialog-frame flex flex-col max-h-[80vh] overflow-y-auto px-4 pt-4 pb-4 md:px-8 md:py-8 gap-4">
+		{/*<div class="dialog-frame flex flex-col max-h-[80vh] overflow-y-auto px-4 pt-4 pb-4 md:px-8 md:py-8 gap-4"> */}
+        <div class="dialog-frame w-full px-4 pt-4 pb-4 md:px-8 md:py-8">
 			<div class="md:hidden sticky top-0 z-20 flex items-center justify-between bg-bgColor">
 				<h4 class="title flex items-end font-semibold">Search</h4>
 				<button
@@ -136,4 +137,21 @@ import { Icon } from "astro-icon/components";
 		width: 100%;
 		height: 100%;
 	}
+    .search-container,
+pagefind-searchbox,
+.pagefind-ui,
+.pagefind-ui__form {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.pagefind-ui {
+  padding: 0 !important;
+}
+
+.pagefind-ui__search-input {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box;
+}
 </style>
