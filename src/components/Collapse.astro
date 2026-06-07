@@ -1,53 +1,51 @@
 ---
+import { cn } from "../utils";
+
 interface Props {
-  class?: string
-  title: string
+  class?: string;
+  title: string;
 }
 
-const { class: className = "", title, ...props } = Astro.props
+const { class: className, title, ...props } = Astro.props;
 ---
 
 <collapse-component class="group/expand">
   <div
-    class={`rounded-xl border px-3 my-4 sm:px-4 group-[.expanded]/expand:bg-muted ${className}`}
+    class={cn("expand-shell rounded-xl border px-3 my-4 sm:px-4", className)}
     {...props}
   >
     <slot name="before" />
-
-    <div
-      class="group/highlight expand-title sticky top-0 z-20 flex cursor-pointer items-center justify-between py-1.5 group-[.expanded]/expand:bg-muted sm:py-2"
+    <button
+      type="button"
+      class="expand-title sticky top-0 z-20 flex w-full cursor-pointer items-center justify-between gap-x-4 py-1.5 text-left sm:py-2"
+      aria-expanded="false"
     >
-      <p class="m-0 transition-colors group-hover/highlight:text-primary">{title}</p>
-
-      <div class="expand-button">
+      <p class="m-0 transition-colors">{title}</p>
+      <span
+        class="expand-button flex shrink-0 items-center justify-center"
+        aria-hidden="true"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
           viewBox="0 0 24 24"
           fill="none"
+          stroke="currentColor"
           stroke-width="2.5"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="my-1 stroke-muted-foreground transition-all duration-300 group-hover/highlight:stroke-primary group-[.expanded]/expand:-rotate-90"
+          class="expand-icon my-1 transition-all duration-300"
         >
-          <line
-            x1="5"
-            y1="12"
-            x2="19"
-            y2="12"
-            class="translate-x-1 scale-x-100 duration-300 ease-in-out group-[.expanded]/expand:translate-x-4 group-[.expanded]/expand:scale-x-0"
-          />
-          <polyline
-            points="12 5 19 12 12 19"
-            class="translate-x-1 duration-300 ease-in-out group-[.expanded]/expand:translate-x-0"
-          />
+          <line x1="5" y1="12" x2="19" y2="12" class="duration-300 ease-in-out"
+          ></line>
+          <polyline points="12 5 19 12 12 19" class="duration-300 ease-in-out"
+          ></polyline>
         </svg>
-      </div>
-    </div>
-
+      </span>
+    </button>
     <div
-      class="expand-content grid opacity-0 transition-all duration-300 ease-in-out group-[.expanded]/expand:mb-3 group-[.expanded]/expand:opacity-100 sm:group-[.expanded]/expand:mb-4"
+      class="expand-content grid opacity-0 transition-all duration-300 ease-in-out"
     >
       <div class="overflow-hidden">
         <slot />
@@ -58,24 +56,52 @@ const { class: className = "", title, ...props } = Astro.props
 
 <script>
   class Collapse extends HTMLElement {
+    constructor() {
+      super();
+    }
+
     connectedCallback() {
       const expandTitle = this.querySelector(".expand-title");
-
       expandTitle?.addEventListener("click", () => {
         this.classList.toggle("expanded");
+        expandTitle.setAttribute(
+          "aria-expanded",
+          String(this.classList.contains("expanded")),
+        );
       });
     }
   }
-
-  customElements.define("collapse-component", Collapse);
+  if (!customElements.get("collapse-component")) {
+    customElements.define("collapse-component", Collapse);
+  }
 </script>
 
 <style>
+  collapse-component.expanded > .expand-shell,
+  collapse-component.expanded > .expand-shell > .expand-title {
+    background-color: var(--theme-color-50);
+  }
+  .expand-title:hover p,
+  .expand-title:hover .expand-icon {
+    color: var(--theme-accent);
+  }
+  .expand-icon {
+    color: var(--theme-light);
+  }
   .expand-content {
     grid-template-rows: 0fr;
   }
-
-  .expanded .expand-content {
+  collapse-component.expanded > .expand-shell > .expand-content {
+    margin-bottom: 0.75rem;
+    opacity: 1;
     grid-template-rows: 1fr;
+  }
+  collapse-component.expanded > .expand-shell > .expand-title .expand-icon {
+    transform: rotate(-90deg);
+  }
+  @media (min-width: 640px) {
+    collapse-component.expanded > .expand-shell > .expand-content {
+      margin-bottom: 1rem;
+    }
   }
 </style>

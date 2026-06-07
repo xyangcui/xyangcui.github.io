@@ -1,0 +1,36 @@
+---
+import { Collapse } from '../../components'
+import PageLayout from '../../layouts/Base.astro'
+import AmsJournals from '../../data/AMSjournals.astro'
+import AguJournals from '../../data/AGUjournals.astro'
+import SPRJournals from '../../data/SPRjournals.astro'
+
+const headings = [
+  { depth: 2, slug: 'Journals', text: 'Journals' },
+  { depth: 2, slug: 'Data', text: 'Data' },
+  { depth: 2, slug: 'Special-links', text: 'Special Links' }
+]
+---
+
+<PageLayout meta={{ title: 'Links' }}>
+  <section class="text-left">
+
+    <h1 id="Journals" class="text-left text-3xl font-bold">
+      Journals
+    </h1>
+
+    <section class="ml-4 mt-4">
+      <Collapse title="American Meteorological Society Journals">
+        <AmsJournals />
+      </Collapse>
+
+      <Collapse title="American Geophysical Union Journals">
+        <AguJournals />
+      </Collapse>
+
+      <Collapse title="Springer Nature Journals">
+        <SPRJournals />
+      </Collapse>
+    </section>
+  </section>
+</PageLayout>
