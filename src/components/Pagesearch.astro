@@ -1,5 +1,4 @@
 ---
-import "@pagefind/default-ui/css/ui.css";
 import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
 import { Icon } from "astro-icon/components";
 ---
@@ -17,9 +16,9 @@ import { Icon } from "astro-icon/components";
 
 	<dialog
 		aria-label="search"
-		class="h-full max-h-full w-full max-w-full md:h-fit bg-bgColor backdrop:backdrop-blur-xl md:my-8 md:min-h-[6.5rem] md:max-w-[44rem] md:rounded-lg overflow-y-hidden"
+		class="h-full max-h-full w-full max-w-full md:h-fit bg-bgColor backdrop:backdrop-blur-xl md:my-8 md:min-h-[6.5rem] md:max-w-[44rem] md:rounded-lg overflow-visible"
 	>
-		<div class="dialog-frame flex flex-col h-[100%] px-4 pt-4 pb-4 md:px-8 md:py-8 gap-4">
+		<div class="dialog-frame flex flex-col max-h-[80vh] overflow-y-auto px-4 pt-4 pb-4 md:px-8 md:py-8 gap-4">
 			<div class="md:hidden sticky top-0 z-20 flex items-center justify-between bg-bgColor">
 				<h4 class="title flex items-end font-semibold">Search</h4>
 				<button
@@ -136,52 +135,5 @@ import { Icon } from "astro-icon/components";
 	.search-container {
 		width: 100%;
 		height: 100%;
-	}
-
-	.pagefind-ui {
-		width: 100%;
-		height: 100%;
-		font-family: inherit;
-	}
-
-	.pagefind-ui__form {
-		margin: 0;
-	}
-
-	.pagefind-ui__search-input {
-		width: 100% !important;
-		border: none !important;
-		border-radius: 0.5rem !important;
-		background: theme("colors.color.100") !important;
-		color: theme("colors.textColor") !important;
-		font-size: 1rem !important;
-	}
-
-	.pagefind-ui__drawer {
-		margin-top: 1rem !important;
-		max-height: calc(100vh - 13rem);
-		overflow-y: auto;
-	}
-
-	.pagefind-ui__result {
-		border: none !important;
-		padding: 0 0 2rem 0 !important;
-	}
-
-	.pagefind-ui__result-link {
-		color: theme("colors.accent-base") !important;
-		font-weight: 500 !important;
-		text-decoration: none !important;
-	}
-
-	.pagefind-ui__result-excerpt {
-		color: theme("colors.textColor") !important;
-		font-size: 1rem !important;
-		line-height: 1.6 !important;
-	}
-
-	.pagefind-ui mark {
-		background: transparent !important;
-		color: theme("colors.accent-two") !important;
 	}
 </style>
