@@ -13,19 +13,21 @@ export const getStaticPaths = (async ({ paginate }) => {
 	const MAX_POSTS_PER_PAGE = 5;
 	const MAX_TAGS = 20;
 	const allPosts = await getAllPosts();
+	const sortedPosts = allPosts.sort(collectionDateSort);
 	const uniqueTags = getUniqueTags(allPosts).slice(0, MAX_TAGS);
 	return paginate(allPosts.sort(collectionDateSort), {
 		pageSize: MAX_POSTS_PER_PAGE,
-		props: { uniqueTags },
+		props: { uniqueTags, allPosts: sortedPosts },
 	});
 }) satisfies GetStaticPaths;
 
 interface Props {
 	page: Page<CollectionEntry<"post">>;
 	uniqueTags: string[];
+	allPosts: CollectionEntry<"post">[];
 }
 
-const { page, uniqueTags } = Astro.props;
+const { page, uniqueTags, allPosts } = Astro.props;
 
 const meta = {
 	description: "Read my collection of posts and the things that interest me",
@@ -49,7 +51,102 @@ const paginationProps = {
 
 const groupedByYear = groupPostsByYear(page.data);
 const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
+// for search
+const allGroupedByYear = groupPostsByYear(allPosts);
+const allDescYearKeys = Object.keys(allGroupedByYear).sort((a, b) => +b - +a);
+
 ---
+<script>
+	const input = document.querySelector<HTMLInputElement>("#post-search");
+	const pagedPosts = document.querySelector<HTMLElement>("#paged-posts");
+	const searchPosts = document.querySelector<HTMLElement>("#search-posts");
+	const pagination = document.querySelector<HTMLElement>("[data-pagination]");
+	const searchItems = document.querySelectorAll<HTMLElement>("#search-posts .search-post-item");
+	const yearGroups = document.querySelectorAll<HTMLElement>("#search-posts .search-year-group");
+	const count = document.querySelector<HTMLElement>("#search-count");
+	const tagButtons = document.querySelectorAll<HTMLButtonElement>(".tag-filter");
+
+	const show = (el: HTMLElement | null) => el?.classList.remove("hidden");
+	const hide = (el: HTMLElement | null) => el?.classList.add("hidden");
+	// search bar logic
+	input?.addEventListener("input", () => {
+		const keyword = input.value.toLowerCase().trim();
+		const isSearching = keyword.length > 0;
+
+		let visibleCount = 0;
+
+		if (isSearching) {
+			hide(pagedPosts);
+			show(searchPosts);
+			hide(pagination);
+		} else {
+			show(pagedPosts);
+			hide(searchPosts);
+			show(pagination);
+
+			if (count) count.textContent = "";
+			return;
+		}
+
+		const keywords = keyword.split(/\s+/).filter(Boolean);
+
+		searchItems.forEach((item) => {
+			const text = item.dataset.search ?? "";
+			const matched = keywords.every((k) => text.includes(k));
+
+			if (matched) {
+				item.classList.remove("hidden");
+				visibleCount++;
+			} else {
+				item.classList.add("hidden");
+			}
+		});
+
+		yearGroups.forEach((group) => {
+			const visibleItems = group.querySelectorAll(".search-post-item:not(.hidden)");
+
+			if (visibleItems.length > 0) {
+				group.classList.remove("hidden");
+			} else {
+				group.classList.add("hidden");
+			}
+		});
+
+		if (count) {
+			count.textContent = `${visibleCount} results`;
+		}
+	});
+
+	// tag logic
+	tagButtons.forEach((button) => {
+		button.addEventListener("click", () => {
+			const tag = button.dataset.tag ?? "";
+			let visibleCount = 0;
+
+			hide(pagedPosts);
+			show(searchPosts);
+			hide(pagination);
+
+			searchItems.forEach((item) => {
+				const tags = item.dataset.tags ?? "";
+				const matched = tags.split(" ").includes(tag);
+
+				item.classList.toggle("hidden", !matched);
+
+				if (matched) visibleCount++;
+			});
+
+			yearGroups.forEach((group) => {
+				const visibleItems = group.querySelectorAll(".search-post-item:not(.hidden)");
+				group.classList.toggle("hidden", visibleItems.length === 0);
+			});
+
+			if (input) input.value = `#${tag}`;
+			if (count) count.textContent = `${visibleCount} results`;
+		});
+	});
+	
+</script>
 
 <PageLayout meta={meta}>
 	<h1 class="title mb-6 flex items-center gap-2">
@@ -61,13 +158,47 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 	</h1>
 	<div class="grid gap-y-8 sm:grid-cols-[1fr_auto] sm:gap-x-8">
 		<section aria-label="Blog post list" class="grow">
+			<div class="relative mb-8">
+				<input
+					id="post-search"
+					type="search"
+					placeholder="Search blogs..."
+					class="w-full rounded-xl border border-muted/60 bg-muted/10 py-3 pl-11 pr-28
+		       				transition-all duration-200
+		       				placeholder:text-muted
+		       				focus:border-accent
+		       				focus:outline-none
+		       				focus:ring-2 focus:ring-accent/20"
+				/>
+
+				<svg
+					class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+				>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"
+				/>
+				</svg>
+
+				<span
+					id="search-count"
+					class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted"
+				></span>
+			</div>
+		<div id="paged-posts" >
 			{
 				descYearKeys.map((yearKey) => (
 					<>
 						<h4 class="title">{yearKey}</h4>
 						<ul class="mb-8 mt-4 space-y-8 text-start">
 							{groupedByYear[yearKey]?.map((p) => (
-								<li class="grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2">
+								<li class="grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2"
+								data-search={`${p.data.title} ${p.data.description ?? ""} ${p.data.tags?.join(" ") ?? ""}`.toLowerCase()}>
 									<PostPreview post={p} withDesc={true} />
 								</li>
 							))}
@@ -75,6 +206,28 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 					</>
 				))
 			}
+		</div>
+		<div id="search-posts" class="hidden">
+	{
+			allDescYearKeys.map((yearKey) => (
+			<div class="search-year-group">
+				<h4 class="title">{yearKey}</h4>
+				<ul class="mb-8 mt-4 space-y-8 text-start">
+					{allGroupedByYear[yearKey]?.map((p) => (
+						<li
+							class="search-post-item grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2"
+							data-search={p.data.title.toLowerCase()}
+							data-tags={(p.data.tags ?? []).map((tag) => tag.toLowerCase()).join(" ")}
+						>
+							<PostPreview post={p} withDesc={true} />
+						</li>
+						))}
+					</ul>
+					</div>
+					))
+				}
+				<p id="no-search-results" hidden>No posts found.</p>
+			</div>
 		</section>
 		{
 			!!uniqueTags.length && (
@@ -88,9 +241,10 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 					<ul class="flex flex-wrap gap-2">
 						{uniqueTags.map((tag) => (
 							<li>
-								<a aria-label={`View all posts with the tag: ${tag}`} href={`/tags/${tag}`}>
+								<button type="button" class="tag-filter" data-tag={tag.toLowerCase()} 
+										aria-label={`Filter posts with the tag: ${tag}`}>
 									<Badge variant="muted" title={tag} />
-								</a>
+								</button>
 							</li>
 						))}
 
@@ -119,5 +273,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 			)
 		}
 	</div>
+	<div data-pagination>
 	<Pagination {...paginationProps} />
+	</div>
 </PageLayout>
