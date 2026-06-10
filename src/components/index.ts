@@ -18,8 +18,8 @@ export { default as Button} from './Button.astro'
 
 export { default as Masthead } from './blog/Masthead.astro';
 export { default as PostPreview } from './blog/PostPreview.astro';
-export { default as TOC } from './blog/TOC.astro';
-export { default as TOCHeading } from './blog/TOCHeading.astro';
+export { default as TOC } from './TOC.astro';
+export { default as TOCHeading } from './TOCHeading.astro';
 export { default as Comments } from './blog/webmentions/Comments.astro';
 export { default as Likes } from './blog/webmentions/Likes.astro';
 export { default as Webmentions } from './blog/webmentions/index.astro';

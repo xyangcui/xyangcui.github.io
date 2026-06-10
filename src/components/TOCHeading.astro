@@ -7,33 +7,42 @@ interface Props {
 }
 
 const {
-  heading: { depth, slug, subheadings, text: rawText }
+  heading: { depth, slug, subheadings, text }
 } = Astro.props
-// TODO: Temporary fix for the issue with the headings that end with link reference text
-const text = rawText.endsWith('#') ? rawText.slice(0, -1) : rawText
 ---
 
 <li>
-  <div class='relative'>
-    <span
-      class='absolute top-[5%] w-[2px] rounded transition-colors duration-300 [&.highlight-bg]:bg-primary [&.is-read]:bg-border'
+    <div class="relative">
+      <!-- 左侧竖线 / 滚动进度条 -->
+      <span
+      class={cn(
+        "absolute top-[5%] h-[90%] rounded transition-colors duration-300",
+        "w-[4px]",  /* 左侧竖线宽度 */
+        "[&.highlight-bg]:bg-[#0F5D8D] dark:[&.highlight-bg]:bg-[#5EA9D6]",  /* 高亮蓝色，可夜间调淡 */
+        "[&.is-read]:bg-[#c0c0c0] dark:[&.is-read]:bg-[[#5EA9D6]"       /* 已读灰色，夜间模式深灰 */
+      )}
     ></span>
+    
     <a
       aria-label={`Scroll to section: ${text}`}
       class={cn(
-        'toc-item line-clamp-2 px-3 py-1 ms-2 text-foreground/75 transition-all hover:text-foreground [&.highlight]:font-medium [&.highlight]:text-primary [&.highlight-bg-translucent]:bg-muted',
-        depth > 2 && 'ps-7'
+        "toc-item block line-clamp-2 px-3 py-1 ms-2 transition-all hover:text-[#0f5d8d] dark:hover:text-[#4ea3ff]",
+        "[&.highlight]:text-[#0F5D8D] dark:[&.highlight]:text-[#5EA9D6]",  /* 高亮文字蓝色，夜间模式调整 */
+        "[&.highlight]:font-medium",
+        "[&.highlight-bg-translucent]:bg-[#F1F3F4] dark:[&.highlight-bg-translucent]:bg-[#25272B]", /* 高亮背景，夜间深色 */
+        depth > 2 && "ps-7"
       )}
-      href={`#${slug}`}>{text}</a
+      href={`#${slug}`}
     >
-  </div>
-  {
-    !!subheadings.length && (
+      {text}
+    </a>
+    </div>
+  
+    {!!subheadings.length && (
       <ul>
         {subheadings.map((subheading) => (
           <Astro.self heading={subheading} />
         ))}
       </ul>
-    )
-  }
-</li>
+    )}
+  </li>
