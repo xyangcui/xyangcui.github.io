@@ -2,13 +2,13 @@
 // components
 import { type CollectionEntry, getCollection } from "astro:content";
 import { Collapse, Icon, Label, Button} from "../components";
-import { getAllPosts } from "../data/post";
+import { getAllPosts } from "../content/post/post";
 import PageLayout from "../layouts/Base.astro";
 import { collectionDateSort } from "../utils/date";
 // links
-import AmsJournals from '../data/AMSjournals.astro'
-import AguJournals from '../data/AGUjournals.astro'
-import SPRJournals from '../data/SPRjournals.astro'
+import AmsJournals from '../content/links/AMSjournals.astro'
+import AguJournals from '../content/links/AGUjournals.astro'
+import SPRJournals from '../content/links/SPRjournals.astro'
 // figures
 import myfigure from "/public/images/home/avatar.png";
 // Posts
@@ -58,7 +58,7 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
         </div>
     </section>
 
-	      <div class="space-y-3">
+	<div class="space-y-3">
         <Collapse title='Featured projects' class='text-2xl font-bold rounded-xl p-2'>
         </Collapse>
         <Collapse title='Featured publications' class='text-2xl font-bold rounded-xl p-2'>

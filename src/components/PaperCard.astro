@@ -1,0 +1,55 @@
+---
+import {Button} from "../components";
+interface Props {
+    class?: string;
+    title: string;
+    authors: string;
+    year: string;
+    journal: string;
+    abstract: string;
+    doi: string;
+    bibtex: string;
+}
+
+const { class: className, title, authors, year, journal, abstract, doi, bibtex, ...props } = Astro.props;
+const myNames = ["Cui Xiangyang", "Xiangyang Cui"];
+
+let authorsHtml = authors;
+const myNamesPattern = /(Cui Xiangyang|Xiangyang Cui)/gi;
+authorsHtml = authorsHtml.replace(myNamesPattern, `<strong class="font-bold">$&</strong>`);
+
+---
+
+<details style="width: 850px;" class="border border-none rounded-lg p-3 bg-base-200 transition-all duration-200 hover:shadow-md">
+    <summary class="collapse-title font-Lexend">
+        <span class="text-base leading-relaxed text-slate-600" set:html={authorsHtml}></span>
+        <span class="text-base leading-relaxed text-slate-600 "> ({year}). </span>
+        <span class="text-base leading-relaxed text-slate-600 ">{title}.</span>
+        <span class="text-base leading-relaxed text-slate-600 italic font-bold"> {journal}.</span>
+    </summary>
+
+    <div class="collapse-content ">
+        <h3 class="mb-2 text-xs text-base-content/50 font-bold uppercase trackingw-dest">abstract</h3>
+        <p class="text-sm leading-7 text-base-content/80">{abstract}</p>
+    </div>
+    {/* buttons */}
+    <div class="flex justify-end gap-2">
+        <Button class="rounded-full font-bold" title="DOI" href={doi} />
+        <Button class="btn btn-sm copy-bib-btn rounded-full font-bold" title="Copy BibTex" copy-bin-btn data-bibtex={bibtex}/>
+    </div>
+</details>
+
+{/* copy board */}
+<script>
+    document.querySelectorAll(".copy-bib-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+            const bibtex = button.getAttribute("data-bibtex") ?? "";
+            await navigator.clipboard.writeText(bibtex);
+
+            button.textContent = "Copied!";
+            setTimeout(() => {
+                button.textContent = "BibTeX";
+            }, 1200);
+        });
+    });
+</script>

@@ -3,16 +3,17 @@ const { variant = "default", showHash = false, title } = Astro.props;
 
 // CSS-классы для вариантов стилей
 const badgeClasses = {
-	base: "flex items-baseline pt-[0.075rem] drop-shadow-lg active:drop-shadow-none rounded-lg h-6 px-2 text-sm font-medium transition-colors",
+	base: "flex items-baseline pt-[0.075rem] drop-shadow-lg active:drop-shadow-none rounded-lg h-6 px-2 transition-colors",
 	variants: {
-		default: "bg-textColor text-bgColor hover:brightness-105",
-		accent: "bg-accent text-bgColor hover:brightness-105",
-		"accent-base": "bg-accent-base text-bgColor hover:brightness-105",
-		"accent-one": "bg-accent-one text-bgColor hover:brightness-105",
-		"accent-two": "bg-accent-two text-bgColor hover:brightness-105",
-		muted: "bg-color-100 text-textColor hover:bg-accent-two hover:text-bgColor drop-shadow-none hover:drop-shadow-lg",
-		outline: "border border-lightest text-textColor drop-shadow-none",
-		inactive: "text-lighter bg-color-100 drop-shadow-none",
+		default: "bg-textColor text-bgColor hover:brightness-105 text-sm font-medium",
+		accent: "bg-accent text-bgColor hover:brightness-105 text-sm font-medium",
+		"accent-base": "bg-accent-base text-bgColor hover:brightness-105 text-sm font-medium",
+		"accent-one": "bg-accent-one text-bgColor hover:brightness-105 text-sm font-medium",
+		"accent-two": "bg-accent-two text-bgColor hover:brightness-105 text-sm font-medium",
+		muted: "bg-color-100 text-textColor hover:bg-accent-two hover:text-bgColor drop-shadow-none hover:drop-shadow-lg text-sm font-medium",
+		outline: "border border-lightest text-textColor drop-shadow-none text-sm font-medium",
+		inactive: "text-lighter bg-color-100 drop-shadow-none text-sm font-medium",
+		large: "bg-color-100 text-textColor hover:bg-accent-two hover:text-bgColor drop-shadow-none hover:drop-shadow-lg text-xl h-auto py-1 px-3",
 	},
 };
 

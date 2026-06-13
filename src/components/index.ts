@@ -15,6 +15,7 @@ export { default as ThemeProvider } from './ThemeProvider.astro';
 export { default as ThemeToggle } from './ThemeToggle.astro';
 export { default as BackToTop} from './BackToTop.astro'
 export { default as Button} from './Button.astro'
+export { default as PaperCard} from './PaperCard.astro'
 
 export { default as Masthead } from './blog/Masthead.astro';
 export { default as PostPreview } from './blog/PostPreview.astro';
