@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/data/post";
+import { getAllPosts } from "@/content/post/post";
 import { siteConfig } from "@/site.config";
 import rss from "@astrojs/rss";
 
