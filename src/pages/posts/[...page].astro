@@ -10,7 +10,7 @@ import { Icon } from "astro-icon/components";
 import Badge from "@/components/Badge.astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-	const MAX_POSTS_PER_PAGE = 5;
+	const MAX_POSTS_PER_PAGE = 8;
 	const MAX_TAGS = 20;
 	const allPosts = await getAllPosts();
 	const sortedPosts = allPosts.sort(collectionDateSort);
@@ -31,7 +31,7 @@ const { page, uniqueTags, allPosts } = Astro.props;
 
 const meta = {
 	description: "Read my collection of posts and the things that interest me",
-	title: "Posts",
+	title: "Archives",
 };
 
 const paginationProps = {
@@ -150,7 +150,7 @@ const allDescYearKeys = Object.keys(allGroupedByYear).sort((a, b) => +b - +a);
 
 <PageLayout meta={meta}>
 	<h1 class="title mb-6 flex items-center gap-2">
-		Posts
+		Archives
 		<a class="text-accent-two" href="/rss.xml" target="_blank">
 			<span class="sr-only">RSS feed</span>
 			<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:rss" />
@@ -162,7 +162,7 @@ const allDescYearKeys = Object.keys(allGroupedByYear).sort((a, b) => +b - +a);
 				<input
 					id="post-search"
 					type="search"
-					placeholder="Search blogs..."
+					placeholder="Search ..."
 					class="w-full rounded-xl border border-muted/60 bg-muted/10 py-3 pl-11 pr-28
 		       				transition-all duration-200
 		       				placeholder:text-muted
