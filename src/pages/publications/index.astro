@@ -34,12 +34,12 @@ const allTags = [...new Set(papers.flatMap(paper => paper.tags))].sort();
   </h1>
 
   <!-- 搜索框 -->
-  <div class="container mx-auto px-4">
+  <div class="relative mb-8 mx-auto w-full max-w-3xl">
     <input
       id="post-search"
       type="search"
       placeholder="Search ... (click to read abstract)"
-      class="w-full rounded-xl border border-muted/60 bg-muted/10 py-4 pl-12 pr-32 text-lg
+      class="flex-1 w-full rounded-xl border border-muted/60 bg-muted/10 py-3 pl-11 pr-4 md:pr-32 xl:pr-48 text-lg
              transition-all duration-200 placeholder:text-muted
              focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
     />
