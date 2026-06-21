@@ -3,7 +3,7 @@ title: "Features and dynamics of changing jets under global warming"
 description: "It includes an introduction to midlatitude jets (what is it? why changes of it matter?), how it will change under a warming scenario and underlying dynamics of it."
 publishDate: "21 June 2026"
 tags: ["global warming", "midlatitude", "jet"]
-draft: True
+draft: False
 ---
 
 ## A brief introduction to midlatitude jets
