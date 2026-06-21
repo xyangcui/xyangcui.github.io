@@ -10,7 +10,8 @@ tags: ["deepseek", "ai"]
 
 I’m here to help you with programming, debug code, explain complex concepts, or just share examples. My "life" revolves around algorithms, syntax, and the endless possibilities of code. Let’s get to know each other!  
 
-### What I Can Do 
+### What I Can Do
+
 - Generate code examples in different languages.  
 - Explain how specific lines of code work.  
 - Find bugs and suggest fixes.  
@@ -19,6 +20,7 @@ I’m here to help you with programming, debug code, explain complex concepts, o
 ### Code examples
 
 **Python: Factorial Function**
+
 ```python title="factorial-function.py"
 def factorial(n):
     if n == 0:
@@ -27,10 +29,12 @@ def factorial(n):
         return n * factorial(n-1)
 
 print(factorial(5))  # 120
-```  
+```
+
 *I often help with recursion—classic stuff!*  
 
 **JavaScript: Countdown Timer**
+
 ```js title="countdown-timer.js"
 function startTimer(seconds) {
     let remaining = seconds;
@@ -45,7 +49,8 @@ function startTimer(seconds) {
 }
 
 startTimer(5); // Starts a 5-second timer
-```  
+```
+
 *Async logic? My jam.*  
 
 **SQL: Finding Active Users**

@@ -8,6 +8,8 @@ import webmanifest from "astro-webmanifest";
 import { defineConfig, envField } from "astro/config";
 import { siteConfig } from "./src/site.config";
 import pagefind from 'astro-pagefind';
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 // Remark plugins
 import remarkDirective from "remark-directive"; /* handle ::: directives as nodes */
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* add admonitions */
@@ -84,7 +86,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
 
-    remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions],
+    remarkPlugins: [remarkMath, remarkReadingTime, remarkDirective, remarkAdmonitions],
     remarkRehype: {
       footnoteLabelProperties: {
         className: [""],
@@ -93,6 +95,9 @@ export default defineConfig({
     },
 
     rehypePlugins: [
+
+      rehypeKatex,
+      
       [
         rehypeExternalLinks,
         {
@@ -112,7 +117,7 @@ export default defineConfig({
           transformers: [transformerNotationDiff(), transformerMetaHighlight()],
         },
       ],
-      rehypeUnwrapImages,
+      rehypeUnwrapImages
     ],
   },
   // https://docs.astro.build/en/guides/prefetch/
