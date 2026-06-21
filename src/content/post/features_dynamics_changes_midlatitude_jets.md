@@ -20,7 +20,7 @@ Two competing mechanisms are commonly discussed. The first is Arctic amplificati
 
 ### changes induced by internal dynamics
 
-This view comes from the idea that the jet is a result of eddy–mean flow feedback. Inherently, the jet tends to shift poleward. According to critical-level dynamics, or barotropic Rossby wave propagation, the critical level occurs where $U(\phi)=c\cos\phi$. As a result, eddies dissipate less on the equatorward side, the poleward eddy momentum flux becomes stronger, and the eddy momentum flux convergence (EMFC) strengthens on the poleward flank of the jet. Therefore, the jet tends to move poleward. This process is sustained by low-level eddies (Zhang et al., 2012) and eddy-driven secondary circulation (Gerber and Vallis, 2007), forming a positive feedback.
+This view comes from the idea that the jet is a result of eddy–mean flow feedback. Inherently, the jet tends to shift poleward. According to critical-level dynamics, or barotropic Rossby wave propagation, the critical level occurs where $U(\phi_c)=c\cos\phi_c$. As a result, eddies dissipate less on the equatorward side, the poleward eddy momentum flux becomes stronger, and the eddy momentum flux convergence (EMFC) strengthens on the poleward flank of the jet. Therefore, the jet tends to move poleward. This process is sustained by low-level eddies (Zhang et al., 2012) and eddy-driven secondary circulation (Gerber and Vallis, 2007), forming a positive feedback.
 
 Based on this view, Kidston et al. (2010) argued that the eddy length scale will increase (the speed of eddies will decrease), allowing waves to propagate farther away from the jet. This shifts the EMFC farther outside the jet and favors a poleward jet shift.
 
