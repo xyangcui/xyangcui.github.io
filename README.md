@@ -1,1 +1,1 @@
-Email: xyangcui@163.com  cuixy@nuist.edu.cn
+Email: xyangcui@163.com cuixy@nuist.edu.cn
