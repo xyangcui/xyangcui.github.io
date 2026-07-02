@@ -22,10 +22,10 @@ authorsHtml = authorsHtml.replace(myNamesPattern, `<strong class="font-bold">$&<
 
 <details style="width: 850px;" class="border border-none rounded-lg p-3 bg-base-200 transition-all duration-200 hover:shadow-md">
     <summary class="collapse-title font-Lexend">
-        <span class="text-base leading-relaxed text-slate-600" set:html={authorsHtml}></span>
-        <span class="text-base leading-relaxed text-slate-600 "> ({year}). </span>
-        <span class="text-base leading-relaxed text-slate-600 ">{title}.</span>
-        <span class="text-base leading-relaxed text-slate-600 italic font-bold"> {journal}.</span>
+        <span class="text-base leading-relaxed text-base-content dark:text-base-content" set:html={authorsHtml}></span>
+        <span class="text-base leading-relaxed text-base-content dark:text-base-content "> ({year}). </span>
+        <span class="text-base leading-relaxed text-base-content dark:text-base-content ">{title}.</span>
+        <span class="text-base leading-relaxed text-base-content dark:text-base-content italic font-semibold"> {journal}.</span>
     </summary>
 
     <div class="collapse-content ">

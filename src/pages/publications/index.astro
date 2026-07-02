@@ -78,7 +78,7 @@ const allTags = [...new Set(papers.flatMap(paper => paper.tags))].sort();
   </div>
 </PageLayout>
 
-  <style is:global>
+<style is:global>
     .tag-filter-btn.active {
       filter: brightness(0.95);
       transform: scale(0.98);
@@ -92,7 +92,7 @@ const allTags = [...new Set(papers.flatMap(paper => paper.tags))].sort();
     .tag-filter-btn .badge {
       font-size: 1rem;
     }
-  </style>
+</style>
 
 <script>
   const input = document.getElementById('post-search');
