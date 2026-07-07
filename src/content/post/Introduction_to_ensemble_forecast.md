@@ -10,7 +10,7 @@ draft: False
 
 An ensemble forecast is a set of forecasts run from slightly different initial conditions to account for uncertainty in the atmosphere’s starting state, different physical parameters to account for uncertainty in the model itself, or different boundary conditions (e.g., sea ice, soil moisture, land ice and so on). By running the model multiple times with small variations, we can better understand the range of possible ways the atmosphere may evolve.
 
-![Schematic of ensemble forecast](/images/post/intro_to_ens_forecast/ensemble_forecasting_schematicpng.png)
+![Schematic of ensemble forecast](/images/post/intro_to_ens_forecast/ensemble_forecasting_schematicpng.webp)
 
 The ensemble forecast provides a range of possible future scenarios that are consistent with our knowledge of the initial state of the atmosphere and the capabilities of our forecast models. By analyzing the spread among ensemble members, together with our understanding of atmospheric dynamics and physical processes, we can estimate forecast uncertainty and assess how much confidence we should place in the prediction.
 
