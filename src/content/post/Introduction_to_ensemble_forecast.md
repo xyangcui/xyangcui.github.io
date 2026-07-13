@@ -36,3 +36,10 @@ An estimation of how much probility of an event would occur.
 
 It is a product specifically designed to detect extremes, related to the model climate.
 It compares the current ensemble forecast to **the model climate distribution**. Therefore, it ranges from -1 to 1. The closer to both sides, the more likely the weather is to be at the extreme. **The EFI is a "impact-based" forecast**, since the definition of extreme is, totaly different in distinct regions.
+
+## How to evaluate the quality of ensemble forecast?
+
+Compare forecast error and spread. If spread equals error, the forecast will be calibrated perfectly. If spread is below error, the forecast will be under-dispersive. If spread is beyond error, the forecast will be over-dispersive.
+
+The other is to use score, such as Continuous Ranked Probability Score (CRPS).
+![Schematic of ensemble forecast](/images/post/intro_to_ens_forecast/CRPS.jpg)
