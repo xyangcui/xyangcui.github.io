@@ -96,7 +96,7 @@ const postSeries = content.data.seriesId
 
 {
 	content.data.coverImage && (
-		<div class="mb-4 mt-2 overflow-auto rounded-lg">
+		<div class="mt-4 flex flex-wrap items-center gap-2 text-[15px] text-zinc-600 dark:text-zinc-400">
 			<Image
 				alt={content.data.coverImage.alt}
 				class="object-cover"
@@ -109,7 +109,7 @@ const postSeries = content.data.seriesId
 }
 
 <p 
-	class="prose max-w-none text-textColor mx-2"
+	class="mt-4 text-[17px] leading-7 text-zinc-700 dark:text-zinc-300"
 	data-pagefind-body
 >
 	{content.data.description}
