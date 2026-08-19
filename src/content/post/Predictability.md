@@ -1,5 +1,5 @@
 ---
-title: "Mathematical and Informatics views of predictability"
+title: "Mathematical and Information views of predictability"
 description: "Two views of preditability are introduced in the article. One comes from math and the other comes from information theory."
 publishDate: "6 August 2026"
 tags: ["predictability","prediction"]
@@ -17,13 +17,12 @@ draft: False
 - Predictability that is estimated using a model system (the perfect model approach) is **model-dependent; hence may be called practical predictability**.
 - **Predictability may be viewed as a limit of the practical predictability** when the model system approaches ‘ultimate’ perfectness.
 - **The optimal model system used for estimation of predictability should be able to predict future climate states as a whole**, because any single variable at a given location is intimately linked to other fields at neighboring locations. **Thus, CGCM is an ideal tool for this purpose**.
+
 :::note
 Aspects come from a meeting "**NRC: Assessment of the ISI predictabiliy**" in 2011.
 :::
 
 ## View1: Nonlinear growth of forecast error
-
-
 
 ### Three kinds of predictability problem
 
@@ -150,11 +149,109 @@ $$
 
 It means that, once $c$ is approached, prediction is meaningless since the error will not depend on the initial state, or, the initial information is totally lost. The integrating time when it reaches $c$ can be determined as the predictability limit of the dynamical system.
 
-## View2: Evolution of both signal and noise
+## View2: Difference between prediction and climatological distributions
+
+### explaining some forecast glossaries
+
+Assume verification state is $\bm{v}$, initial state is $\bm{i}$ and observation is $\bm{\Theta}$.
+
+- **Markov property**: Given the previous state, the state at this moment is independent of earlier historical states. Mathmatically, $P(x_{t+\tau}|(x_{t},x_{t-\tau},x_{t-2\tau}))=P(x_{t+\tau}|x_{t})$.
+- **transition probability**: $P(\bm{v}|\bm{i})$. It means the state $\bm{i}$ transfers to state $\bm{v}$ at prob $P$.
+- **analysis distribution**: $P(\bm{i}|\bm{\Theta})$. The distribution of $\bm{i}$ constrained by $\bm{\Theta}$.
+- **forecast distribution**: $P(\bm{v}|\bm{\Theta})$. The distribution of $\bm{v}$ constrained by $\bm{\Theta}$. It follows the dynamical system and is calculate as: $P(\bm{v}|\bm{\Theta})=\int P(\bm{v}|\bm{i})P(\bm{i}|\bm{\Theta}) \, d\bm{i}$.
+
+:::note
+The mean of the forecast distribution is called **the signal**, while the dispersion is called **the noise or spread**.
+
+The **forecast ensemble** is theoretically drawn from the forecast distribution. Yet in practice, we often select samples from $P(\bm{i}|\bm{\Theta})$ and their related transition probability.
+:::
+
+- **climatological distribution**: $P(\bm{v})$. The forecast distribution in the absence of a specific measurement of the system $\bm{\Theta}$. It can be interpreted as the average forecast distribution and calculated as: $P(\bm{v})=\int P(\bm{v}|\bm{\Theta})P(\bm{\Theta}) \, d\bm{\Theta}$.
+
+### The definition of predictability
+
+A forecast is meaningful because initial information helps us reduce the uncertainty of estimating a value after several time steps. It therefore comes the following common principle for metrics of predictability: **For a perfect model scenario and for a specific set of obseravtions, the variable is said to be unpredictable if the forecast distribution is identical to the climatological distribution**.
+
+Under this principle, *the predictability can be defined as*: **the difference between the forecast distribution and the climatological distribution under a perfect model and available initial information**. A greater difference indicates greater influence of the initial information on the forecast distribution, making the forecast more meaningful.
+
+![error growth of logistic map](/images/post/predictability/pdf_curves.jpg)
+
+### Use "information enthropy" to measure predictability
+
+Good metrics of predictability must follow two major principles:
+- As lead time grows, a measure of predictability must decrease and be saturated in the end.
+- a measure of predictability should be at least invariant to linear, invertible transformation of the variables.
+
+:::important
+For instance, predictabilty of $\bm{X}$ should be equivalent with $\bm{Y}$ in the form of $f(\bm{X})$ (Schneider and Griffies 1999; Majda et al. 2002).
+:::
+
+Information theory provides measures of predictability that naturally satisfy these two principles of predictability and that have several additional attractive properties. The starting point for these measures is the metric entropy. The entropy of a continuous distribution $P(\bm{v})$ is defined as
+
+$$
+\begin{equation}
+H(\bm{v})=-\int P(\bm{v})\log{P(\bm{v})} d\bm{v},
+\end{equation}
+$$
+
+where the integral is understood to be a multiple integral over the range of $\bm{v}$. Enthropy is a natural and fundamental measure of uncertainty in a number of fields (Shannon 1948).
+
+Given entropy as a measure of dispersion, a natural measure of predictability is the difference between the entropy of the forecast and climatological distributions:
+
+$$
+\begin{align}
+P_{\bm{\Theta}}=H(\bm{v})-H_{\bm{\Theta}}(\bm{v}|\bm{\Theta}),
+\end{align}
+$$
+where
+$$
+\begin{align}
+H_{\bm{\Theta}}(\bm{v}|\bm{\Theta})=-\int P(\bm{v}|\bm{\Theta})\log{P(\bm{v}|\bm{\Theta})} d\bm{v}
+\end{align}
+$$
+
+is the entropy of the forecast distribution. The quantity is called **the predictive information**, and it varies in time through its dependence on observation and time.
+
+An alternative measure of the difference between two distributions is **relative entropy, also known as the Kullback-Leibler distance (KL distance)**(Cover and Thomas, 1991). In the context of predictability, relative entropy is
+
+$$
+\begin{align}
+R_{\bm{\Theta}}(\bm{v}|\bm{\Theta})=-\int P(\bm{v}|\bm{\Theta})\log{\dfrac{P(\bm{v}|\bm{\Theta})}{P(\bm{v})}} d\bm{v}
+\end{align}
+$$
+
+Just as for predictive information, relative entropy varies from one forecast to another through its dependence on observation.
+
+A remarkable fact is that relative entropy and predictive information have precisely the same value when averaged over all observations (DelSole 2004a). Hence we can measure the average predictability by
+
+$$
+\begin{align}
+\bm{M}
+&= \int R_{\bm{\Theta}}P(\bm{\Theta})\,d\bm{\Theta} \notag \\
+&= \int P_{\bm{\Theta}}P(\bm{\Theta})\,d\bm{\Theta} \notag \\
+&= \int P_{\bm{v},\bm{\Theta}}\log\frac{P(\bm{v},\bm{\Theta})}{P(\bm{v})P(\bm{\Theta})}\,d\bm{\Theta}.
+\end{align}
+$$
+
+The quantity is known as mutual information. It measures the interaction between $\bm{\Theta}$ and $\bm{\bm{v}}$ and vanishes only if two variables are independent (Cover and Thomas, 1991). Such property suggests it naturally measures predictability because the independence between $\bm{\Theta}$ and $\bm{\bm{v}}$ means the latter is unpredictable.
+
+Substituting the predictive information (12) into the second equality in (15) gives
+
+$$
+\begin{equation}
+\bm{M}=H(\bm{v})-H(\bm{v}|\bm{\Theta}).
+\end{equation}
+$$
+
+This relation rigorously expresses the notion that predictability can be measured in two equivalent ways: by the difference between the forecast and climatological distributions and by the degree of statistical dependence between the observations and verification. **Fundamentally, predictability is a measure of the gain from knowing something, say, an initial condition or climate forcing, that is statistically related to the variables of interest**.
 
 ## Reference
 
 Lorenz, E. N., 1965: A study of the predictability of a 28-variable atmospheric model. *Tellus*, 17(3), 321–333. <https://doi.org/10.3402/tellusa.v17i3.9076>.
+
+Lorenz, E.N., 1969: The predictability of a flow which possesses many scales of motion. *Tellus*, 21: 289-307. <https://doi.org/10.1111/j.2153-3490.1969.tb00444.x>.
+
+Lorenz, E.N., 2004: Deterministic Nonperiodic Flow. In: Hunt, B.R., Li, TY., Kennedy, J.A., Nusse, H.E. (eds) The Theory of Chaotic Attractors. *Springer*, New York, NY. <https://doi.org/10.1007/978-0-387-21830-4_2>.
 
 Mu, M., 2000: Nonlinear singular vectors and nonlinear singular values. *Sci. China Ser. D-Earth Sci*. 43, 375–385. <https://doi.org/10.1007/BF02959448>.
 
@@ -169,3 +266,12 @@ Ding Ruiqiang, Li Jian-Ping, 2008: Study on the regularity of predictability lim
 
 Ding Ruiqiang, Li Jianping, 2009: Application of nonlinear error growth dynamics in studies of atmospheric predictability. *Acta Meteorologica Sinica*, 67(2), 241-249. <https://doi.org/10.11676/qxxb2009.024>.丁瑞强, 李建平.  非线性误差增长理论在大气可预报性中的应用. *气象学报*, 2009, 67(2): 241-249.
 
+Shannon, C. E., 1948: A mathematical theory of communication, *Bell Syst. Tech. J.*, 27, 623 – 656, 379 – 423.
+
+Schneider, T., and S. M. Griffies, 1999: A Conceptual Framework for Predictability Studies. *J. Climate*, 12, 3133–3155, <https://doi.org/10.1175/1520-0442(1999)012<3133:ACFFPS>2.0.CO;2>.
+
+Cover, T. M., and J. A. Thomas, 1991: Elements of Information Theory. 576 pp., John Wiley, Hoboken, N. J.
+
+DelSole, T., 2004: Predictability and Information Theory. Part I: Measures of Predictability. *J. Atmos. Sci.*, 61, 2425–2440, <https://doi.org/10.1175/1520-0469(2004)061<2425:PAITPI>2.0.CO;2>.
+
+DelSole, T., and M. K. Tippett, 2007: Predictability: Recent insights from information theory. *Reviews of Geophysics*, 45, 2006RG000202, <https://doi.org/10.1029/2006RG000202>.
