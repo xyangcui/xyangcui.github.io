@@ -27,13 +27,13 @@ where $N_0$ is the number of true null hypothesis. To limit the probability of e
 
 ### Argument
 
-The Eq. (1) strongly needs the individual tests are statistically independent, which is almost impossible for gridded climate data.
+The eq. (1) strongly needs the individual tests are statistically independent, which is almost impossible for gridded climate data.
 
 ## Field significance
 
 ### Description
 
-The field significance approach casts the problem of evaluating multiple hypothesis tests as **a metatest, or a global hypothesis test** whose input data are the results of N local hypothesis tests (Von Storch 1982; Livezey and Chen 1983). 
+The **field significance** approach casts the problem of evaluating multiple hypothesis tests as **a metatest, or a global hypothesis test** whose input data are the results of N local hypothesis tests (Von Storch 1982; Livezey and Chen 1983). 
 
 ### Technical details
 
@@ -48,12 +48,12 @@ where $x$ is the number of rroneously rejected tests, $N_0$ is the number of ind
 
 If the number of point satisfying $p<\alpha$ is larger than the number $n$ required by $Pr(n)=\alpha_{global}$, we then reject the global null hypothesis at the $\alpha_{global}$ significance level and believe some local null hypothesis are statistically rejected.
 
-However, **previous thought requires local tests are statistically independent, which is impossible for gridded climate data**. To resolve this, some studies use the **Monte Carlo thinking** to design elaborate and computationally affordable experiments, while conserving the spatial and temporal correlation of gridded climate data.
+However, **previous thought requires local tests are statistically independent, which is impossible for gridded climate data**. To address this issue, several studies have adopted **Monte Carlo–based approaches** to design sophisticated yet computationally efficient experiments while **preserving the spatial and temporal dependence structure** of gridded climate data.
 
 ### Argument
 
 The field significance approach has some drawbacks.
-- First, **such approach doesn't utilize much avaliable information**. It often uses points of local tests only, yet neglecting their p-value. Exactly, a small p-value contributes more than a larger one when resolving the problem of multiple testing. This problem is particularly acute when the fraction of false null hypotheses is small.
+- First, **such approach doesn't utilize much avaliable information**. It often uses points of local tests only, yet neglecting their p values. Exactly, a small p value contributes more than a larger one when resolving the problem of multiple testing. This problem is particularly acute when the fraction of false null hypotheses is small.
 - Second, the approach can only provide information like there are, or not points fasly significant. We still fail to **exactly know which points are fasly significant**.
 
 ## False Discover Rate
@@ -63,14 +63,14 @@ The field significance approach has some drawbacks.
 - The FDR is **the statistically expected (i.e., average over analyses of hypothetically many similar testing situations) fraction of local null hypothesis test rejections (“discoveries”)** for which the respective null hypotheses are actually true (Benjamini and Hochberg 1995).
 
 :::note
-For instance, in one test we have 20 local null hypothesis being rejected ("discoveries"), and 4 tests are false discoveries. We have the False discovery portion (FDP) as: $FDP=V/R=4/20=20%$. Then, we repeat such tests 100 times and have FDPs $FDP_i i=1,...,100$. Then, the FDR is defined as the average of FDP $FDR=E[V/R]$.
+For instance, in one test we have 20 local null hypothesis being rejected ("discoveries"), and 4 of them are false discoveries. We have the false discovery portion (FDP) as: $FDP=V/R=4/20=20%$. Then, we repeat such tests 100 times and have FDPs $FDP_i$,   $i=1,...,100$. Then, the FDR is defined as the average of FDP: $FDR=E[FDP]$.
 :::
 
-- An upper limit for this fraction can be controlled exactly for independent local tests (and approximately for correlated local tests), **regardless of the unknown proportion N0/N of local tests having true null hypotheses**.
+- An upper limit for this fraction can be controlled exactly for independent local tests (and approximately for correlated local tests), **regardless of the unknown proportion $N_0/N$ of local tests having true null hypotheses**.
 
 ### Technical details
 
-Assume we have $N$ tests and their related p value $p_i$, $i=1,2,...,N$. The following procedure is known as Benjamini–Hochberg（BH）procedure. It uses the therom that $FDR\le \alpha_{FDR}\dfrac{N_0}{N} \le \alpha_{FDR}$.
+Assume we have $N$ tests and their related p value $p_i$, $i=1,2,...,N$. The following procedure is known as Benjamini–Hochberg（BH）procedure. It uses the therom of $FDR\le \alpha_{FDR}\dfrac{N_0}{N} \le \alpha_{FDR}$.
 - First, sort these p value in ascending order, get $p_{(1)}<p_{(2)}<...<p_{(N)}$.
 - Second, take $\alpha_{FDR}$, we can get a global adjusted critera of p value: $p^*_{FDR}=\max\limits_{i=1,...,N} [p_{(i)}:p_{(i)} \le (i/N)\alpha_{FDR}]$.
 - Third, **if $p<p^*_{FDR}$, we reject the local null hypothesis at $\alpha$ significance level more confidently**. In addition, the FDR procedure can be interpreted as an approach to field significance. **If none of the sorted p values satisfy the inequality $p<p^*_{FDR}$, then none of the respective null hypotheses can be rejected**, implying also nonrejection of the global null hypothesis that they compose. We can also see $\alpha_{FDR}$ as $\alpha_{global}$ in the procedure of field significance.

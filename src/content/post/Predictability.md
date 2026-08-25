@@ -233,17 +233,56 @@ $$
 \end{align}
 $$
 
-The quantity is known as mutual information. It measures the interaction between $\bm{\Theta}$ and $\bm{\bm{v}}$ and vanishes only if two variables are independent (Cover and Thomas, 1991). Such property suggests it naturally measures predictability because the independence between $\bm{\Theta}$ and $\bm{\bm{v}}$ means the latter is unpredictable.
+The quantity is known as **mutual information**. It measures the interaction between $\bm{\Theta}$ and $\bm{\bm{v}}$ and vanishes only if two variables are independent (Cover and Thomas, 1991). Such property suggests it naturally measures predictability because the independence between $\bm{\Theta}$ and $\bm{\bm{v}}$ means the latter is unpredictable.
 
 Substituting the predictive information (12) into the second equality in (15) gives
 
 $$
 \begin{equation}
-\bm{M}=H(\bm{v})-H(\bm{v}|\bm{\Theta}).
+\bm{M}=H(\bm{v})-H(\bm{v}|\bm{\Theta}),
 \end{equation}
 $$
 
+where $H(\bm{v}|\bm{\Theta})=\int H_{\Theta}(\bm{v}|\bm{\Theta})P(\bm{\Theta}) d\bm{\Theta}$.
+
 This relation rigorously expresses the notion that predictability can be measured in two equivalent ways: by the difference between the forecast and climatological distributions and by the degree of statistical dependence between the observations and verification. **Fundamentally, predictability is a measure of the gain from knowing something, say, an initial condition or climate forcing, that is statistically related to the variables of interest**.
+
+### Explain whitening and a paradox in studying predictability
+
+Two more important concepts here I want to conclude. The first is **whitening transformation**. It can give us whitened regression propagator $L$, whitened variable and whitened space. The whitened variable has two major properties. 
+- **their climatological covariance matrix equals the identity matrix**. 
+- **their probability density is isotropic (i.e., rotationally invariant)**. 
+
+For instance, variables can be transformed to whitened space by projecting them onto their principal components and then normalizing the principal components to unit variance.
+
+The second one is an apparent paradox regarding the use of singular vectors in the study of predictability. Some argued that the leading singular vectors of a propagator **maximize error growth** and hence identify components that are poorly predicted. On the other hand, other authors have argued that the leading singular vectors of a propagator **maximize signal growth** and hence identify components that are well predicted.
+
+Well, the exact role of the leading singular vectors depends on how they are normalized. Assume a model propagates linearly, we therefore have
+
+$$
+\begin{align}
+\bm{I}-\dot{G}\dot{G}^{H}=\hat{G}\hat{G}^{H},
+\end{align}
+$$
+where
+$$
+\begin{align}
+\dot{G}=\Sigma_{v}^{-1/2}G(\sigma^{1/2}_{\mu_{i|\Theta}})^{H}, \notag \\
+\hat{G}=\Sigma_{v}^{-1/2}G(\sigma^{1/2}_{e})^{H}. 
+\end{align}
+$$
+
+The first term is identified with climatological spread due to the forecast signal; the second is identified with spread due to initial condition error. If the ruler is related to the forecast signal, the leading signular vectors will maximize predictability while minimize error growth; If the ruler is related to error growth, their function will reverse. We are lead to the conclusion that **the normalization applied to the right of the propagator determines whether the singular vectors maximize noise or maximize signal**.
+
+:::important[How to understand normalization?] 
+Assume we want to solve such a problem,
+$$
+\begin{align}
+\mu(\tau)=\max{\dfrac{\|\bm{x}_{0}^{H}\bm{G}^{H}\bm{N}\bm{G}\bm{x}_{0}\|}{\|\bm{x}_{0}^{H}\bm{M}\bm{x}_{0}\|}}. 
+\end{align}
+$$
+The norm matrix $\bm{N}$ determines how the evolved state $\bm{G}\bm{x}_{0}$ is evaluated against the target pattern, while $\bm{M}$ defines the metric used to measure the initial state $\bm{x}_0$. If both $\bm{N}$ and $\bm{M}$ is an Euclidean norm, for instance, that means the evolved and initial states are both measured by their Euclidean length.
+:::
 
 ## Reference
 
