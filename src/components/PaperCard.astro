@@ -12,30 +12,36 @@ interface Props {
 }
 
 const { class: className, title, authors, year, journal, abstract, doi, bibtex, ...props } = Astro.props;
-const myNames = ["Cui Xiangyang", "Xiangyang Cui"];
+const myNames = ["Cui Xiangyang", "Xiangyang Cui", "Cui, X. Y.", "X. Y., Cui"];
 
 let authorsHtml = authors;
 const myNamesPattern = /(Cui Xiangyang|Xiangyang Cui)/gi;
-authorsHtml = authorsHtml.replace(myNamesPattern, `<strong class="font-bold">$&</strong>`);
+authorsHtml = authorsHtml.replace(myNamesPattern, `<strong class="font-bold text-[#111827] dark:text-[#D1D5DB]">$&</strong>`);
 
 ---
 
-<details style="width: 850px;" class="border border-none rounded-lg p-3 bg-base-200 transition-all duration-200 hover:shadow-md">
-    <summary class="collapse-title font-Lexend">
-        <span class="text-base leading-relaxed text-base-content dark:text-base-content" set:html={authorsHtml}></span>
-        <span class="text-base leading-relaxed text-base-content dark:text-base-content "> ({year}). </span>
-        <span class="text-base leading-relaxed text-base-content dark:text-base-content ">{title}.</span>
-        <span class="text-base leading-relaxed text-base-content dark:text-base-content italic font-semibold"> {journal}.</span>
+<details style="w-full max-w-[850px];" 
+         class="border border-slate-200/60 rounded-2xl p-5 
+                bg-white/75
+                dark:border-[#36505A]/70 dark:bg-[#19333E]/75
+                backdrop-blur-sm shadow-[0_8px_30px_rgba(30,60,80,0.05)] transition-all duration-200 
+                hover:-translate-y-0.5 hover:border-red-200/60 hover:shadow-[0_14px_40px_rgba(30,60,80,0.09)]
+                dark:hover:border-[#F0D36A]/25 dark:hover:shadow-black/20">
+    <summary class="collapse-title">
+        <span class="text-lg leading-relaxed text-base-content dark:text-base-content font-semibold" set:html={authorsHtml}></span>
+        <span class="text-lg leading-relaxed text-base-content dark:text-base-content font-semibold"> ({year}). </span>
+        <span class="text-lg leading-relaxed text-base-content dark:text-base-content font-semibold">{title}.</span>
+        <span class="text-lg leading-relaxed text-base-content text-[#8F3B46] dark:text-base-content italic font-bold dark:text-[#D08078]"> {journal}.</span>
     </summary>
 
     <div class="collapse-content ">
-        <h3 class="mb-2 text-xs text-base-content/50 font-bold uppercase trackingw-dest">abstract</h3>
-        <p class="text-sm leading-7 text-base-content/80">{abstract}</p>
+        <h3 class="mb-2 text-xs text-base-content/50 font-bold uppercase trackingw-dest dark:text-[#D1D5DB]">abstract</h3>
+        <p class="text-[17px] leading-7 text-base-content/80 font-medium">{abstract}</p>
     </div>
     {/* buttons */}
     <div class="flex justify-end gap-2">
-        <Button class="rounded-full font-bold" title="DOI" href={doi} />
-        <Button class="btn btn-sm copy-bib-btn rounded-full font-bold" title="Copy BibTex" copy-bin-btn data-bibtex={bibtex}/>
+        <Button class="rounded-full font-bold dark:text-[#D1D5DB]" title="DOI" href={doi} />
+        <Button class="btn btn-sm copy-bib-btn rounded-full font-bold dark:text-[#D1D5DB]" title="</>  Copy BibTex" copy-bin-btn data-bibtex={bibtex}/>
     </div>
 </details>
 

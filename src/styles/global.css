@@ -262,10 +262,10 @@
     --code-line-diff-remove: rgba(248, 85, 82, 0.15);
   }
 
-  html {
+/*  html {
     letter-spacing: 0.025em;
     font-family: "Lexend", sans-serif;
-  }
+  } */
 
   h1 {
     @apply text-2xl md:pt-[0.0rem] !important;

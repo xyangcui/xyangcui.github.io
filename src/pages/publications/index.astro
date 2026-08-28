@@ -3,8 +3,8 @@ import PageLayout from "../../layouts/Base.astro";
 import { Icon } from "astro-icon/components";
 import { PaperCard } from "../../components";
 import { parseBib } from '../../utils/';
-import { publicationTags } from '/src/content/Bibtex/abcpublicationTags'
-import Badge from "@/components/Badge.astro";
+import { publicationTags } from '../../content/Bibtex/abcpublicationTags'
+import Badge from "../../components/Badge.astro";
 
 const meta = {
   description: "my publications",
@@ -51,13 +51,13 @@ const allTags = [...new Set(papers.flatMap(paper => paper.tags))].sort();
 
   <!-- 标签栏 -->
   {allTags.length > 0 && (
-    <div class="tags-filter mb-6 flex flex-wrap gap-2" id="tag-filter-bar">
+    <div class="tags-filter mb-6 flex flex-wrap gap-2 font-semibold" id="tag-filter-bar">
       <button type="button" class="tag-filter-btn" data-tag="" aria-label="Show all">
-        <Badge variant="large" title="All papers" />
+        <Badge variant="large" title="All" class="font-bold"/>
       </button>
       {allTags.map(tag => (
         <button type="button" class="tag-filter-btn" data-tag={tag}>
-          <Badge variant="large" title={tag} />
+          <Badge variant="large" title={tag} class="font-semibold"/>
         </button>
       ))}
     </div>
@@ -68,7 +68,7 @@ const allTags = [...new Set(papers.flatMap(paper => paper.tags))].sort();
     {papers.map((paper, idx) => (
       <div 
         class="paper-item"
-        data-search={[paper.title, paper.authors, paper.abstract, paper.tags.join(' ')].join(' ').toLowerCase()}
+        data-search={[paper.title, paper.year, paper.authors, paper.abstract, paper.tags.join(' ')].join(' ').toLowerCase()}
         data-tags={paper.tags.join(',')}
         data-year={paper.year}
       >
