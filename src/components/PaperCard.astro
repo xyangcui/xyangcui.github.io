@@ -40,8 +40,22 @@ authorsHtml = authorsHtml.replace(myNamesPattern, `<strong class="font-bold text
     </div>
     {/* buttons */}
     <div class="flex justify-end gap-2">
-        <Button class="rounded-full font-bold dark:text-[#D1D5DB]" title="DOI" href={doi} />
-        <Button class="btn btn-sm copy-bib-btn rounded-full font-bold dark:text-[#D1D5DB]" title="</>  Copy BibTex" copy-bin-btn data-bibtex={bibtex}/>
+        <Button class="rounded-full font-bold dark:text-[#D1D5DB]" title="DOI" href={doi}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-Width="2.5" stroke-Linecap="round" stroke-Linejoin="round"
+                style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '4px' }} >
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            DOI
+        </Button>
+        
+        <Button class="btn btn-sm copy-bib-btn rounded-full font-bold dark:text-[#D1D5DB]" title="Copy BibTeX" copy-bin-btn data-bibtex={bibtex}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" fill="currentColor" viewBox="0 0 24 24" 
+            style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '4px' }}>
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copy BibTeX
+        </Button>
     </div>
 </details>
 
