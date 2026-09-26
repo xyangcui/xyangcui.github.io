@@ -102,9 +102,11 @@ We can use Lanczos method to solve the problem. The left part can be represented
 - Integrate the ADM from the normalized perturbation.
 - Apply $\bm{M}^{-1/2}$.
 
-After the Lanczos iteration, we have singular values and singular vectors of $\bm{u}$. To obtain signluar vectors related to $\delta \bm{x}$, we need use $\bm{M}^{-1/2}$ to multiply singular vectors.
+After the Lanczos iteration, we have singular values and singular vectors of $\bm{u}$. To obtain signluar vectors related to $\delta \bm{x}$ (*physical space*), we need use $\bm{M}^{-1/2}$ to multiply singular vectors.
 
 ## Appendix
+
+### Limited-memory BFGS
 
 ### The Lanczos algorithm
 
@@ -146,6 +148,8 @@ return $Q$, $T$
 
 ***Second, apply SVD to the tridiagonal matrix***
 
-Assume $V$ is eigenvectors of $T$, we can obtain them of the origninal operator by multiplying $Q$ on the left side of $V$.
+$U^T, \Sigma, V \leftarrow SVD(T)$
+
+$V_{A_p} \leftarrow QV$
 
 :::
