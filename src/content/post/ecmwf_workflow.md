@@ -59,13 +59,19 @@ The incremental method include two loops. In the outer loop, a high-resolution m
 
 In the method, we assume $J(\bm{x})=J(\bm{x}_b+\delta\bm{x}) \approx J(\bm{x}_b)+J(\delta\bm{x})$. Therefore, minimizing the latter cost function looks like a Gaussian-Newton method to minimize $J(\bm{x})$. To reduce the linear error, it chooses to minimize many times. Yet, we should know that **the outer loop doesn't guarantee convergence** to the minimum of $J(\bm{x})$.
 
-### Procedure
+### EDA procedure
 
 
 
-## Singular vectors (SVs)
+## Singular vector (SV)
 
-It represents large scale information. 
+The Singular Vector (SV) method is a **linear approach for identifying the directions along which perturbations are most likely to grow from a given model state**. Based on the linearized model dynamics over a specified time interval, SVs describe the perturbation structures that can experience the strongest amplification during their subsequent evolution. In practice, the leading SVs are usually retained to represent the dominant directions of potential perturbation growth around the current state.
+
+SVs primarily capture **large-scale, dynamically organized perturbation structures** and provide information about the most rapidly growing directions of the model dynamics. However, perturbation growth can also be influenced by uncertainties at smaller spatial scales that may not be sufficiently represented by the leading SVs alone. Ensemble Data Assimilation (EDA), in contrast, provides flow-dependent perturbation information associated with **medium- and small-scale uncertainties**.
+
+By combining the large-scale dynamically growing structures identified by SVs with the medium- and small-scale perturbation information provided by EDA, a broader range of relevant uncertainty can be represented. The combined perturbation space therefore provides a **more comprehensive description of the possible directions of future model-state evolution**, improving the representation of dynamically relevant forecast uncertainty.
+
+### SV procedure
 
 Mathmatically, the growth rate of an initial perturbation $\delta \bm{x}$ can be represented as:
 $$
@@ -104,17 +110,156 @@ We can use Lanczos method to solve the problem. The left part can be represented
 
 After the Lanczos iteration, we have singular values and singular vectors of $\bm{u}$. To obtain signluar vectors related to $\delta \bm{x}$ (*physical space*), we need use $\bm{M}^{-1/2}$ to multiply singular vectors.
 
+Finally, SV-type perturbations are obtained by randomly combining these singular vectors.
+
 ## Appendix
 
 ### Limited-memory BFGS
 
+The L-BFGS algorithm is an iterative method for solving nonlinear optimization problems. As a quasi-Newton method, it uses gradient information from previous iterations to approximate the curvature of the cost function. Unlike the standard Newton method, L-BFGS **avoids explicitly computing, storing, and inverting the large Hessian matrix**, making it more suitable for high-dimensional optimization problems.
+
+The key idea of L-BFGS is to retain a limited number of vector pairs, $s_k=x_{k+1}-x_k$ and $y_k=g_{k+1}-g_k$, which describe the changes in the state and its gradient between successive iterations. These historical pairs contain information about the local curvature of the cost function. Using a **two-loop recursion**, L-BFGS efficiently combines this information to implicitly approximate the action of the inverse Hessian on the gradient and obtain a search direction,
+
+$$
+d_k \approx -H_k \nabla J(x_k),
+$$
+
+where $H_k$ denotes the approximation of the inverse Hessian. The state is then updated along this direction with a step length determined by a line-search procedure. Since only a limited number of recent $(s_k,y_k)$ pairs are retained, the method significantly reduces memory and computational requirements while preserving useful curvature information from previous iterations.
+
+:::note[Pseudocode to perform the L-BFGS algorithm]
+Initialize $x_\theta=xb$, $s=\Phi$, $y=\Phi$
+
+for k = 0, ..., Kmax *do*
+
+&emsp;$g_k=\nabla J(x_k)$
+
+&emsp;if ||$g_k$|| < $\epsilon$ *then*
+
+&emsp;&emsp;stop
+
+&emsp;&emsp;end if
+
+&emsp;$d_k$ = L-BFGS-Two-Loop($g_k$, s, y)
+
+&emsp;if ${g_k}^T d_k$ ≥ 0 *then*
+
+&emsp;&emsp;s, y = $\Phi$
+
+&emsp;&emsp;$d_k$ = -$g_k$
+
+&emsp;end if
+
+&emsp;Find $\alpha_k$ satisfying Armijo condition
+
+&emsp;&emsp;$x_{k+1}=x_k+\alpha_k * d_k$
+
+&emsp;&emsp;$g_{k+1}=\nabla J(x_{k+1})$
+
+&emsp;$s_k=x_{k+1}-x_k$
+
+&emsp;$y_k=g_{k+1}-g_k$
+
+&emsp;if ${s_k}^Ty_k$ > threshold *then*
+
+&emsp;&emsp;(S, Y).append($s_k$, $y_k$)
+
+&emsp;&emsp;retain only the latest m pairs
+
+&emsp;end if
+
+return $x_k$
+
+:::
+
+:::note[Pseudocode of the L-BFGS-TWO-LOOP function]
+&emsp;# Goal:
+
+&emsp;# approximately compute
+
+&emsp;#       d = -$H_k$ g
+
+&emsp;# without explicitly constructing $H_k$
+
+&emsp;$q \leftarrow -g$
+
+&emsp;alpha_list $\leftarrow$ empty list
+
+&emsp;--------------------------------------------------
+
+&emsp;First loop: newest $\rightarrow$ oldest
+
+&emsp;--------------------------------------------------
+
+&emsp;for i = newest curvature pair $\rightarrow$ oldest curvature pair *do*
+
+&emsp;&emsp;$s \leftarrow S_i$
+
+&emsp;&emsp;$y \leftarrow Y_i$
+
+&emsp;&emsp;if $y^Ts$ is too small or non-positive  *then*
+
+&emsp;&emsp;&emsp;CONTINUE
+
+&emsp;&emsp;end if
+
+&emsp;&emsp;$\rho \leftarrow \dfrac{1}{y^Ts}$
+
+&emsp;&emsp;$\alpha \leftarrow \rho s^Tq$
+
+&emsp;&emsp;$q \leftarrow q-\alpha y$
+
+&emsp;&emsp;store $\alpha$
+
+&emsp;--------------------------------------------------
+
+&emsp;Initial inverse-Hessian scaling
+
+&emsp;--------------------------------------------------
+
+&emsp;if no previous curvature pairs *then*
+
+&emsp;&emsp;$\gamma \leftarrow 1$
+
+&emsp;else
+
+&emsp;&emsp;use newest pair (s, y)
+
+&emsp;&emsp;$\gamma \leftarrow \dfrac{s^Ty}{y^Ty}$
+
+&emsp;end if
+
+&emsp;$r \leftarrow \gamma q$
+
+&emsp;--------------------------------------------------
+
+&emsp;Second loop: oldest → newest
+
+&emsp;--------------------------------------------------
+
+&emsp;for each valid curvature pair (s, y) *do*
+
+&emsp;&emsp;from oldest → newest
+
+&emsp;&emsp;$\rho \leftarrow \dfrac{1}{y^Ts}$
+
+&emsp;&emsp;$\beta \leftarrow \rho y^Tr$
+
+&emsp;&emsp;recover corresponding $\alpha$
+
+&emsp;&emsp;$r \leftarrow r + s (\alpha-\beta)$
+
+&emsp;return r
+:::
+
 ### The Lanczos algorithm
 
-Algorithms based on Lanczos theory are very useful to solve **an eigenvalue problem when only a few of the extreme eigenvectors are needed**. It can be applied to large and sparse problems. The algorithm does not access directly the matrix elements of the operator that defines the problem, but it gives an estimate of the eigenvectors through successive application of the operator. 
+The Lanczos algorithm is an efficient iterative method for solving **large-scale eigenvalue problems when only a few extreme eigenvalues and their corresponding eigenvectors are required**. It is particularly suitable for large and sparse systems, since it does not require explicit access to or storage of all matrix elements. Instead, the algorithm extracts the dominant spectral information through successive matrix-vector products.
 
-The heart of the algorithm is to **construct a tridiagonal matrix** by projecting the originial propagator into a Krylov subpace. By applying SVD to the tridiagonal matrix, we have several extreme eigenvectors of the original propagator.
+The heart of the Lanczos algorithm is to **construct a much smaller tridiagonal matrix** by projecting the original operator onto a Krylov subspace. This subspace is generated iteratively by repeatedly applying the original operator to a vector. The resulting tridiagonal matrix preserves the essential spectral information of the original high-dimensional problem while being much cheaper to store and solve.
 
-:::note[Pseudocode to perform the Lanczos algorithm] 
+By performing an eigendecomposition of the tridiagonal matrix, several extreme eigenvalues and their corresponding eigenvectors can be efficiently approximated. The eigenvectors of the original operator are then reconstructed from the eigenvectors of the reduced problem and the Lanczos basis vectors. In this way, the Lanczos algorithm transforms a large-scale eigenvalue problem into a much smaller one without explicitly forming or decomposing the full operator.
+
+:::note[Pseudocode to perform the Lanczos algorithm]
 Consider the eigenvalue problem $A_{p} x=\sigma^2 x$
 
 ***First, construct a tridiagonal matrix***
@@ -123,20 +268,32 @@ Choose a random normalized vector $q_1$
 
 Set $\beta_0 = 0$
 
-for $i = 1, \dots, n$ do
+for $i = 1, \dots, n$ *do*
 
-- $w \leftarrow A_p q_i$
-- if $i > 1$ then
-  - $w \leftarrow w - \beta_{i-1} q_{i-1}$
-- end if
-- $\alpha_i \leftarrow q_i^{\top} w$
-- $w \leftarrow w - \alpha_i q_i$
-- Re-orthogonalize $w$ against $\{q_1,\dots,q_i\}$
-- $\beta_i \leftarrow \lVert w \rVert$
-- if $\beta_i < \mathrm{tol}$ then
-  - break
-- end if
-- $q_{i+1} \leftarrow w / \beta_i$
+&emsp;$w \leftarrow A_p q_i$
+
+&emsp;if $i > 1$ *then*
+
+&emsp;&emsp;$w \leftarrow w - \beta_{i-1} q_{i-1}$
+
+&emsp;end if
+
+&emsp;$\alpha_i \leftarrow q_i^{\top} w$
+
+&emsp;$w \leftarrow w - \alpha_i q_i$
+
+&emsp;Re-orthogonalize $w$ against $\{q_1,\dots,q_i\}$
+
+&emsp;$\beta_i \leftarrow \lVert w \rVert$
+
+
+&emsp;if $\beta_i < \mathrm{tol}$ *then*
+
+&emsp;&emsp;break
+
+&emsp;end if
+
+&emsp;$q_{i+1} \leftarrow w / \beta_i$
 
 end for
 
