@@ -61,7 +61,10 @@ In the method, we assume $J(\bm{x})=J(\bm{x}_b+\delta\bm{x}) \approx J(\bm{x}_b)
 
 ### EDA procedure
 
-
+- In an assimilation window, assume we have $N$ background states at the start of the assimilation window, and many observations after quality control in the window.
+- perturb observations to generate $N$ packets of the observation $O_n$; and perturb model parameters to generate $N$ model configurations $\mathcal{M}_n$.
+- solve $N$ minimizing problems $min J(x_n,O_n,\mathcal{M}_n)$.
+- Integrate analyzed states to the forecast date. States at the start of next assilimation window are seen as background states of this one.
 
 ## Singular vector (SV)
 
@@ -113,7 +116,7 @@ After the Lanczos iteration, we have singular values and singular vectors of $\b
 Finally, SV-type perturbations are obtained by randomly combining these singular vectors.
 
 ## Appendix
-
+ 
 ### Limited-memory BFGS
 
 The L-BFGS algorithm is an iterative method for solving nonlinear optimization problems. As a quasi-Newton method, it uses gradient information from previous iterations to approximate the curvature of the cost function. Unlike the standard Newton method, L-BFGS **avoids explicitly computing, storing, and inverting the large Hessian matrix**, making it more suitable for high-dimensional optimization problems.
